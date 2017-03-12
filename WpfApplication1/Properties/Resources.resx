@@ -1,0 +1,915 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptChangesLabel" xml:space="preserve">
+    <value>APPLY CHANGES</value>
+  </data>
+  <data name="AdditionalScoreLabel" xml:space="preserve">
+    <value>Additional points:</value>
+  </data>
+  <data name="AllTimeButton" xml:space="preserve">
+    <value>ALLTIME</value>
+  </data>
+  <data name="AllTimeGapLabel" xml:space="preserve">
+    <value>Min. games count for all time rating:</value>
+  </data>
+  <data name="BackupDb" xml:space="preserve">
+    <value>Backup DB</value>
+  </data>
+  <data name="BanHeader" xml:space="preserve">
+    <value>Ban</value>
+  </data>
+  <data name="BanTooltip" xml:space="preserve">
+    <value>Count of disqualifications</value>
+  </data>
+  <data name="BestChoiceHeader" xml:space="preserve">
+    <value>BestWay</value>
+  </data>
+  <data name="BestChoiceLabel" xml:space="preserve">
+    <value>Best choice:</value>
+  </data>
+  <data name="BestChoiceTooltip" xml:space="preserve">
+    <value>Full 'best choice' count</value>
+  </data>
+  <data name="BestHeader" xml:space="preserve">
+    <value>BEST</value>
+  </data>
+  <data name="BestPlayerHeader" xml:space="preserve">
+    <value>BestPlayer</value>
+  </data>
+  <data name="BestPlayerTooltip" xml:space="preserve">
+    <value>How many times voted as best player</value>
+  </data>
+  <data name="BlackLabel" xml:space="preserve">
+    <value>Mafia</value>
+  </data>
+  <data name="BlackUgadHeader" xml:space="preserve">
+    <value>BlackGuess</value>
+  </data>
+  <data name="BlackUgadTooltip" xml:space="preserve">
+    <value>Count of black wins in guessing</value>
+  </data>
+  <data name="ChangeNickLabel" xml:space="preserve">
+    <value>Change nick:</value>
+  </data>
+  <data name="CheckWindowTitle" xml:space="preserve">
+    <value>CHECKS</value>
+  </data>
+  <data name="ComboWinLabel" xml:space="preserve">
+    <value>ComboWin</value>
+  </data>
+  <data name="CountButton" xml:space="preserve">
+    <value>COUNT</value>
+  </data>
+  <data name="CreateInfographics" xml:space="preserve">
+    <value>Show Infographics</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>DATABASE</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>date</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>Day</value>
+  </data>
+  <data name="DonButton" xml:space="preserve">
+    <value>DON</value>
+  </data>
+  <data name="DonCheck" xml:space="preserve">
+    <value>DON CHECK:</value>
+  </data>
+  <data name="DropSeasonLabel" xml:space="preserve">
+    <value>DROP SEASON LABEL</value>
+  </data>
+  <data name="DropSeriesLabel" xml:space="preserve">
+    <value>DROP SERIES LABEL</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>SETTINGS</value>
+  </data>
+  <data name="EpicSeriesLabel" xml:space="preserve">
+    <value>EpicSeries</value>
+  </data>
+  <data name="EpicWfLabel" xml:space="preserve">
+    <value>EpicW/F</value>
+  </data>
+  <data name="EpicWinLabel" xml:space="preserve">
+    <value>EpicWin</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Exit</value>
+  </data>
+  <data name="ExportButton" xml:space="preserve">
+    <value>EXPORT</value>
+  </data>
+  <data name="FalseCom" xml:space="preserve">
+    <value>FALSE COM:</value>
+  </data>
+  <data name="FemaleLabel" xml:space="preserve">
+    <value>F</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>FILE</value>
+  </data>
+  <data name="FoulsHeader" xml:space="preserve">
+    <value>FOULS</value>
+  </data>
+  <data name="FoulsTooltip" xml:space="preserve">
+    <value>Count of fouls</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>game</value>
+  </data>
+  <data name="GameSeries" xml:space="preserve">
+    <value>game series</value>
+  </data>
+  <data name="GamesHeader" xml:space="preserve">
+    <value>Games</value>
+  </data>
+  <data name="GamesLabel" xml:space="preserve">
+    <value>GAMES:</value>
+  </data>
+  <data name="GamesTooltip" xml:space="preserve">
+    <value>Total games count</value>
+  </data>
+  <data name="Graphs" xml:space="preserve">
+    <value>Show Charts</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>INFO</value>
+  </data>
+  <data name="InfoAverage" xml:space="preserve">
+    <value>Average</value>
+  </data>
+  <data name="InfoBan" xml:space="preserve">
+    <value>%</value>
+  </data>
+  <data name="InfoBest" xml:space="preserve">
+    <value>Best</value>
+  </data>
+  <data name="InfoBlack" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="InfoBlackWins" xml:space="preserve">
+    <value>wins</value>
+  </data>
+  <data name="InfoCheck" xml:space="preserve">
+    <value>ratio</value>
+  </data>
+  <data name="InfoClear" xml:space="preserve">
+    <value>Clear</value>
+  </data>
+  <data name="InfoClearBlack" xml:space="preserve">
+    <value>black wins</value>
+  </data>
+  <data name="InfoClearRed" xml:space="preserve">
+    <value>red wins</value>
+  </data>
+  <data name="InfoDon" xml:space="preserve">
+    <value>Don</value>
+  </data>
+  <data name="InfoDonWins" xml:space="preserve">
+    <value>wins</value>
+  </data>
+  <data name="InfoFc" xml:space="preserve">
+    <value>False com</value>
+  </data>
+  <data name="InfoFcWins" xml:space="preserve">
+    <value>wins</value>
+  </data>
+  <data name="InfoFirstNight" xml:space="preserve">
+    <value>first night</value>
+  </data>
+  <data name="InfoFouls" xml:space="preserve">
+    <value>fouls</value>
+  </data>
+  <data name="InfographicsTooltip" xml:space="preserve">
+    <value>Personal infographics</value>
+  </data>
+  <data name="InfoInUgad" xml:space="preserve">
+    <value>guessing</value>
+  </data>
+  <data name="InfoInUgadBlack" xml:space="preserve">
+    <value>Black in</value>
+  </data>
+  <data name="InfoInUgadRed" xml:space="preserve">
+    <value>Red in</value>
+  </data>
+  <data name="InfoKilled" xml:space="preserve">
+    <value>Killed in</value>
+  </data>
+  <data name="InfoPercent" xml:space="preserve">
+    <value>Ban</value>
+  </data>
+  <data name="InfoPlayer" xml:space="preserve">
+    <value>player</value>
+  </data>
+  <data name="InfoRatio" xml:space="preserve">
+    <value>Check</value>
+  </data>
+  <data name="InfoRed" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="InfoRedWins" xml:space="preserve">
+    <value>wins</value>
+  </data>
+  <data name="InfoSheriff" xml:space="preserve">
+    <value>wins</value>
+  </data>
+  <data name="InfoWins" xml:space="preserve">
+    <value>Sheriff</value>
+  </data>
+  <data name="KilledFirstHeader" xml:space="preserve">
+    <value>1stKilled</value>
+  </data>
+  <data name="KilledFirstTooltip" xml:space="preserve">
+    <value>How many times was killed in first night</value>
+  </data>
+  <data name="KillsLabel" xml:space="preserve">
+    <value>Murders:</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Language:</value>
+  </data>
+  <data name="LoseHeader" xml:space="preserve">
+    <value>Lose</value>
+  </data>
+  <data name="LoseTooltip" xml:space="preserve">
+    <value>Loses count</value>
+  </data>
+  <data name="MaleLabel" xml:space="preserve">
+    <value>M</value>
+  </data>
+  <data name="Maximum" xml:space="preserve">
+    <value>MAXIMUM:</value>
+  </data>
+  <data name="Minimum" xml:space="preserve">
+    <value>MINIMUM:</value>
+  </data>
+  <data name="Mishit" xml:space="preserve">
+    <value>Mishit</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>New</value>
+  </data>
+  <data name="NewWeek" xml:space="preserve">
+    <value>New Week</value>
+  </data>
+  <data name="NickHeader" xml:space="preserve">
+    <value>NICK</value>
+  </data>
+  <data name="NickTooltip" xml:space="preserve">
+    <value>Player's Nick</value>
+  </data>
+  <data name="Night" xml:space="preserve">
+    <value>Night</value>
+  </data>
+  <data name="NotInRating" xml:space="preserve">
+    <value>Players that are not in rating yet:</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Open</value>
+  </data>
+  <data name="OpenDb" xml:space="preserve">
+    <value>Show DB</value>
+  </data>
+  <data name="PlayerButton" xml:space="preserve">
+    <value>PLAYER</value>
+  </data>
+  <data name="PlayersLabel" xml:space="preserve">
+    <value>Players:</value>
+  </data>
+  <data name="RatingHeader" xml:space="preserve">
+    <value>Rating</value>
+  </data>
+  <data name="RatingLabel" xml:space="preserve">
+    <value>RATING:</value>
+  </data>
+  <data name="RatingTooltip" xml:space="preserve">
+    <value>Player's rating</value>
+  </data>
+  <data name="RedLabel" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="RedUgadHeader" xml:space="preserve">
+    <value>RedGuess</value>
+  </data>
+  <data name="RedUgadTooltip" xml:space="preserve">
+    <value>Count of red wins in guessing</value>
+  </data>
+  <data name="ResultHeader" xml:space="preserve">
+    <value>RES</value>
+  </data>
+  <data name="RoleHeader" xml:space="preserve">
+    <value>ROLE</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Save</value>
+  </data>
+  <data name="SaveDb" xml:space="preserve">
+    <value>Save To DB</value>
+  </data>
+  <data name="ScoreHeader" xml:space="preserve">
+    <value>Score</value>
+  </data>
+  <data name="ScoreLabel" xml:space="preserve">
+    <value>PTS:</value>
+  </data>
+  <data name="ScoreTooltip" xml:space="preserve">
+    <value>Number of points</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>SEARCH</value>
+  </data>
+  <data name="SeasonButton" xml:space="preserve">
+    <value>SEASON</value>
+  </data>
+  <data name="SeasonDynamicsLabel" xml:space="preserve">
+    <value>SEASON DYNAMICS:</value>
+  </data>
+  <data name="SeasonGapLabel" xml:space="preserve">
+    <value>Min. games count for season rating:</value>
+  </data>
+  <data name="SeriesButton" xml:space="preserve">
+    <value>SERIES</value>
+  </data>
+  <data name="SeriesDynamicsLabel" xml:space="preserve">
+    <value>SERIES DYNAMICS:</value>
+  </data>
+  <data name="SeriesGapLabel" xml:space="preserve">
+    <value>Min. games count for series rating:</value>
+  </data>
+  <data name="SeriesLabel" xml:space="preserve">
+    <value>Series:</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Settings</value>
+  </data>
+  <data name="SettingsHeader" xml:space="preserve">
+    <value>SETTINGS</value>
+  </data>
+  <data name="SheriffButton" xml:space="preserve">
+    <value>SHERIFF</value>
+  </data>
+  <data name="SheriffFirstCheck" xml:space="preserve">
+    <value>SHERIFF 1 NIGHT:</value>
+  </data>
+  <data name="SheriffFirstNightLabel" xml:space="preserve">
+    <value>Sheriff doesn't gets -1</value>
+  </data>
+  <data name="SheriffSecondCheck" xml:space="preserve">
+    <value>SHERIFF 2 NIGHT:</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Statistics</value>
+  </data>
+  <data name="StBans" xml:space="preserve">
+    <value>BANS:</value>
+  </data>
+  <data name="StBansTooltip" xml:space="preserve">
+    <value>Total bans count</value>
+  </data>
+  <data name="StBestPlayer" xml:space="preserve">
+    <value>BEST PLAYER:</value>
+  </data>
+  <data name="StBestPlayersTotalTooltip" xml:space="preserve">
+    <value>Total count of games where best player was determined</value>
+  </data>
+  <data name="StBestPlayerTooltip" xml:space="preserve">
+    <value>Ten players most often called the best</value>
+  </data>
+  <data name="StBestWay" xml:space="preserve">
+    <value>BEST CHOICE:</value>
+  </data>
+  <data name="StBestWayListTooltip" xml:space="preserve">
+    <value>Players that are often killed in the first night</value>
+  </data>
+  <data name="StBestWayTooltip" xml:space="preserve">
+    <value>Total count of games where full best choice was determined</value>
+  </data>
+  <data name="StDonWins" xml:space="preserve">
+    <value>DON WINS:</value>
+  </data>
+  <data name="StDonWinsTooltip" xml:space="preserve">
+    <value>Leaders by best win/lose ratio when playing as Don</value>
+  </data>
+  <data name="StFalseCom" xml:space="preserve">
+    <value>FALSE COM:</value>
+  </data>
+  <data name="StFalseComTooltip" xml:space="preserve">
+    <value>The most successful false com</value>
+  </data>
+  <data name="StFnChecked" xml:space="preserve">
+    <value>CHECKED IN 1ST NIGHT:</value>
+  </data>
+  <data name="StFnCheckedTooltip" xml:space="preserve">
+    <value>Players which are often checked in the first night</value>
+  </data>
+  <data name="StFnKilled" xml:space="preserve">
+    <value>KILLED IN 1ST NIGHT:</value>
+  </data>
+  <data name="StFnKilledTooltip" xml:space="preserve">
+    <value>Players which are often killed in the first night</value>
+  </data>
+  <data name="StFouls" xml:space="preserve">
+    <value>FOULS:</value>
+  </data>
+  <data name="StFoulsAverage" xml:space="preserve">
+    <value>AVERAGE FOULS IN GAME:</value>
+  </data>
+  <data name="StFoulsAverageTooltip" xml:space="preserve">
+    <value>Players with best average count of fouls in game</value>
+  </data>
+  <data name="StFoulsTooltip" xml:space="preserve">
+    <value>Total fouls count</value>
+  </data>
+  <data name="StGames" xml:space="preserve">
+    <value>GAMES COUNT LEADERS:</value>
+  </data>
+  <data name="StGamesTooltip" xml:space="preserve">
+    <value>Leaders by total games count</value>
+  </data>
+  <data name="StGuessingTooltip" xml:space="preserve">
+    <value>Count of games with guessing stage</value>
+  </data>
+  <data name="StPlayers" xml:space="preserve">
+    <value>PLAYERS:</value>
+  </data>
+  <data name="StPlayersTooltip" xml:space="preserve">
+    <value>Total players count</value>
+  </data>
+  <data name="StSheriffWins" xml:space="preserve">
+    <value>SHERIFF WINS:</value>
+  </data>
+  <data name="StSheriffWinsTooltip" xml:space="preserve">
+    <value>Leaders by best win/lose ratio when playing as Sheriff</value>
+  </data>
+  <data name="StThreeZv" xml:space="preserve">
+    <value>THREE CHECKS:</value>
+  </data>
+  <data name="StThreeZvTooltip" xml:space="preserve">
+    <value>Total count of games where sheriff made three succesful checks in a row</value>
+  </data>
+  <data name="StWinLoseRatio" xml:space="preserve">
+    <value>WIN/LOSE RATIO:</value>
+  </data>
+  <data name="StWinLoseRatioTooltip" xml:space="preserve">
+    <value>Leaders of the win/lose ratio</value>
+  </data>
+  <data name="Table" xml:space="preserve">
+    <value>table</value>
+  </data>
+  <data name="TechBlackHeader" xml:space="preserve">
+    <value>TechBlack</value>
+  </data>
+  <data name="TechBlackLabel" xml:space="preserve">
+    <value>Technical Black Win</value>
+  </data>
+  <data name="TechBlackTooltip" xml:space="preserve">
+    <value>Count of technical black wins</value>
+  </data>
+  <data name="TechRedHeader" xml:space="preserve">
+    <value>TechRed</value>
+  </data>
+  <data name="TechRedLabel" xml:space="preserve">
+    <value>Technical Red Win</value>
+  </data>
+  <data name="TechRedTooltip" xml:space="preserve">
+    <value>Count of technical red wins</value>
+  </data>
+  <data name="ThreeZvButton" xml:space="preserve">
+    <value>Three checks</value>
+  </data>
+  <data name="ThreeZvHeader" xml:space="preserve">
+    <value>3Zv</value>
+  </data>
+  <data name="ThreeZvTooltip" xml:space="preserve">
+    <value>Count of successful three checks when sheriff</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>time</value>
+  </data>
+  <data name="TimerButton" xml:space="preserve">
+    <value>TIMER</value>
+  </data>
+  <data name="TimerLong" xml:space="preserve">
+    <value>1 min</value>
+  </data>
+  <data name="TimerReset" xml:space="preserve">
+    <value>RESET</value>
+  </data>
+  <data name="TimerShort" xml:space="preserve">
+    <value>30 sec</value>
+  </data>
+  <data name="TimerStart" xml:space="preserve">
+    <value>START/STOP</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Total:</value>
+  </data>
+  <data name="TotalEnd" xml:space="preserve">
+    <value>games</value>
+  </data>
+  <data name="UgadaykaLabel" xml:space="preserve">
+    <value>Guessing</value>
+  </data>
+  <data name="VotingLabel" xml:space="preserve">
+    <value>Voting:</value>
+  </data>
+  <data name="WeekButton" xml:space="preserve">
+    <value>WEEK</value>
+  </data>
+  <data name="WeekStat" xml:space="preserve">
+    <value>Week statistic:</value>
+  </data>
+  <data name="WinBlackHeader" xml:space="preserve">
+    <value>WinBlack</value>
+  </data>
+  <data name="WinBlackTooltip" xml:space="preserve">
+    <value>Count of wins while playing role of a Black</value>
+  </data>
+  <data name="WinDonHeader" xml:space="preserve">
+    <value>WinDon</value>
+  </data>
+  <data name="WinDonTooltip" xml:space="preserve">
+    <value>Count of wins while playing role of a Don</value>
+  </data>
+  <data name="WinHeader" xml:space="preserve">
+    <value>Win</value>
+  </data>
+  <data name="WinRedHeader" xml:space="preserve">
+    <value>WinRed</value>
+  </data>
+  <data name="WinRedTooltip" xml:space="preserve">
+    <value>Count of wins while playing role of a Red</value>
+  </data>
+  <data name="WinRowHeader" xml:space="preserve">
+    <value>WinRow</value>
+  </data>
+  <data name="WinRowTooltip" xml:space="preserve">
+    <value>Series of wins in a row</value>
+  </data>
+  <data name="WinSheriffHeader" xml:space="preserve">
+    <value>WinSh</value>
+  </data>
+  <data name="WinSheriffTooltip" xml:space="preserve">
+    <value>Count of wins while playing role of a Sheriff</value>
+  </data>
+  <data name="WinTooltip" xml:space="preserve">
+    <value>Wins count</value>
+  </data>
+  <data name="AddNewPlayersMessage" xml:space="preserve">
+    <value>Add new players to DB?</value>
+  </data>
+  <data name="AddToDbMessage" xml:space="preserve">
+    <value>Add game to DB?</value>
+  </data>
+  <data name="Best" xml:space="preserve">
+    <value>Best</value>
+  </data>
+  <data name="BestPlayer" xml:space="preserve">
+    <value>Best player</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="ChangeLanguageMessage" xml:space="preserve">
+    <value>Application have to be reloaded. Restart now?</value>
+  </data>
+  <data name="CreateNewProtocolMessage" xml:space="preserve">
+    <value>Create new protocol?</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Date</value>
+  </data>
+  <data name="DbRefreshedMessage" xml:space="preserve">
+    <value>DB was changed</value>
+  </data>
+  <data name="DbSuccessMessage" xml:space="preserve">
+    <value>DB was successfully changed.</value>
+  </data>
+  <data name="Disqualify" xml:space="preserve">
+    <value>Disqualify player #</value>
+  </data>
+  <data name="DisqualifyLabel" xml:space="preserve">
+    <value>DISQUALIFY</value>
+  </data>
+  <data name="Don" xml:space="preserve">
+    <value>Don</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Error</value>
+  </data>
+  <data name="InfoBlackSlice" xml:space="preserve">
+    <value>Maf</value>
+  </data>
+  <data name="InfoDonSlice" xml:space="preserve">
+    <value>Don</value>
+  </data>
+  <data name="InfoLoseLabel" xml:space="preserve">
+    <value>Loses</value>
+  </data>
+  <data name="InfoRedSlice" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="InfoSheriffSlice" xml:space="preserve">
+    <value>Sh</value>
+  </data>
+  <data name="InfoWinLabel" xml:space="preserve">
+    <value>Wins</value>
+  </data>
+  <data name="NewWeekErrorMessage" xml:space="preserve">
+    <value>Week table not found</value>
+  </data>
+  <data name="NewWeekSuccessMessage" xml:space="preserve">
+    <value>New week has been started</value>
+  </data>
+  <data name="NickChangedMessage" xml:space="preserve">
+    <value>Nick was changed</value>
+  </data>
+  <data name="PtsAddedMessage" xml:space="preserve">
+    <value>Points was added</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="SameNicksMessage" xml:space="preserve">
+    <value>Similar nicks entered</value>
+  </data>
+  <data name="SeasonDroppedMessage" xml:space="preserve">
+    <value>Season table dropped</value>
+  </data>
+  <data name="SelectWinnerMessage" xml:space="preserve">
+    <value>Pleasa determine the winners</value>
+  </data>
+  <data name="SeriesDroppedMessage" xml:space="preserve">
+    <value>Series table dropped</value>
+  </data>
+  <data name="SettingsNotFoundError" xml:space="preserve">
+    <value>Settings file doesn't exists</value>
+  </data>
+  <data name="Sheriff" xml:space="preserve">
+    <value>Sheriff</value>
+  </data>
+  <data name="StAllTimeError" xml:space="preserve">
+    <value>AllTime table doesn't exists</value>
+  </data>
+  <data name="StAllTimeTitle" xml:space="preserve">
+    <value>ALLTIME STATISTICS</value>
+  </data>
+  <data name="StartNewWeekMessage" xml:space="preserve">
+    <value>Start new week?</value>
+  </data>
+  <data name="StBlackLabel" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="StBlackSlice1" xml:space="preserve">
+    <value>Black</value>
+  </data>
+  <data name="StBlackSlice2" xml:space="preserve">
+    <value>wins</value>
+  </data>
+  <data name="StClearLabel" xml:space="preserve">
+    <value>clear</value>
+  </data>
+  <data name="StRedLabel" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="StRedSlice1" xml:space="preserve">
+    <value>Red</value>
+  </data>
+  <data name="StRedSlice2" xml:space="preserve">
+    <value>wins</value>
+  </data>
+  <data name="StSeasonError" xml:space="preserve">
+    <value>Season table doesn't exists</value>
+  </data>
+  <data name="StSeasonTitle" xml:space="preserve">
+    <value>SEASON STATISTICS</value>
+  </data>
+  <data name="StSeriesError" xml:space="preserve">
+    <value>Series table doesn't exists</value>
+  </data>
+  <data name="StSeriesTitle" xml:space="preserve">
+    <value>SERIES STATISTICS</value>
+  </data>
+  <data name="StTotalGames" xml:space="preserve">
+    <value>TOTAL GAMES:</value>
+  </data>
+  <data name="StUgadPart1" xml:space="preserve">
+    <value>GUESSING: </value>
+  </data>
+  <data name="StUgadPart2" xml:space="preserve">
+    <value>GAMES</value>
+  </data>
+  <data name="StWeekError" xml:space="preserve">
+    <value>Week table doesn't exists</value>
+  </data>
+  <data name="StWeekTitle" xml:space="preserve">
+    <value>WEEK STATISTICS</value>
+  </data>
+  <data name="TimeLabel" xml:space="preserve">
+    <value>Time</value>
+  </data>
+  <data name="WrongFalseComMessage" xml:space="preserve">
+    <value>Wrong False Com number</value>
+  </data>
+  <data name="WrongNicksMessage" xml:space="preserve">
+    <value>Wrong nicks entered</value>
+  </data>
+  <data name="WrongResultsMessage" xml:space="preserve">
+    <value>Error in game results</value>
+  </data>
+  <data name="WrongRolesMessage" xml:space="preserve">
+    <value>Error in player's roles</value>
+  </data>
+  <data name="Autumn" xml:space="preserve">
+    <value>Autumn</value>
+  </data>
+  <data name="Best1" xml:space="preserve">
+    <value>Best 1</value>
+  </data>
+  <data name="Best2" xml:space="preserve">
+    <value>Best 2</value>
+  </data>
+  <data name="Best3" xml:space="preserve">
+    <value>Best 3</value>
+  </data>
+  <data name="ChAllTimeHeader" xml:space="preserve">
+    <value>ALLTIME RATING</value>
+  </data>
+  <data name="ChSeasonHeader" xml:space="preserve">
+    <value>SEASON RATING</value>
+  </data>
+  <data name="ChSeriesHeader" xml:space="preserve">
+    <value>SERIES RATING</value>
+  </data>
+  <data name="ChWeekHeader" xml:space="preserve">
+    <value>WEEK RATING</value>
+  </data>
+  <data name="ComboWfText" xml:space="preserve">
+    <value>10 games without fouls</value>
+  </data>
+  <data name="ComboWinText" xml:space="preserve">
+    <value>5 wins in a row</value>
+  </data>
+  <data name="DbCopiedMessage" xml:space="preserve">
+    <value>DB Successfully copied to file</value>
+  </data>
+  <data name="DbCopyErrorMessage" xml:space="preserve">
+    <value>Error while creating DB backup:</value>
+  </data>
+  <data name="DonCheckHeader" xml:space="preserve">
+    <value>DON'S CHECK</value>
+  </data>
+  <data name="EpicFwText" xml:space="preserve">
+    <value>Win series</value>
+  </data>
+  <data name="EpicWinText" xml:space="preserve">
+    <value>10 wins is a row</value>
+  </data>
+  <data name="ExportComplete" xml:space="preserve">
+    <value>Exporting complete</value>
+  </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>File has been saved</value>
+  </data>
+  <data name="SelectWinnerHeader" xml:space="preserve">
+    <value>SELECT WINNER</value>
+  </data>
+  <data name="SheriffCheckHeader" xml:space="preserve">
+    <value>SHERIFF'S CHECK</value>
+  </data>
+  <data name="Spring" xml:space="preserve">
+    <value>Spring</value>
+  </data>
+  <data name="Summer" xml:space="preserve">
+    <value>Summer</value>
+  </data>
+  <data name="Winter" xml:space="preserve">
+    <value>Winter</value>
+  </data>
+  <data name="MemberTooltip" xml:space="preserve">
+    <value>Club Member</value>
+  </data>
+  <data name="ApplyRatioLabel" xml:space="preserve">
+    <value>Apply ratio for FIIM rating</value>
+  </data>
+</root>

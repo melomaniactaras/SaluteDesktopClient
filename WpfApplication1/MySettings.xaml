@@ -1,0 +1,310 @@
+﻿<Controls:MetroWindow x:Class="WpfApplication1.MySettings"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:Converters="http://metro.mahapps.com/winfx/xaml/shared"
+        xmlns:vsm ="clr-namespace:System.Windows;assembly=PresentationFramework"
+        xmlns:res="clr-namespace:WpfApplication1.Properties"
+        Title="Settings" Icon="icon.png" Width="330" Height="450"
+        ShowIconOnTitleBar="True" TitleForeground="White"
+        GlowBrush="{DynamicResource AccentColorBrush}" EnableDWMDropShadow="True"
+        WindowStartupLocation="CenterOwner"
+        ShowMaxRestoreButton="False">
+    
+    <Window.Resources>
+        <Style x:Key="CheckBoxStyle" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
+           <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="SnapsToDevicePixels" Value="False"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+        
+        <Style x:Key="MetroExpander"
+           TargetType="{x:Type Expander}">
+            <Setter Property="Margin"
+                Value="5" />
+            <Setter Property="Padding"
+                Value="5" />
+            <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
+            <Setter Property="Background"
+                Value="{DynamicResource AccentColorBrush}" />
+            <Setter Property="BorderBrush"
+                Value="{DynamicResource AccentColorBrush}" />
+            <Setter Property="Controls:ControlsHelper.HeaderFontSize"
+                Value="{DynamicResource ContentFontSize}" />
+            <Setter Property="Controls:GroupBoxHelper.HeaderForeground"
+                Value="{x:Null}" />
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type Expander}},
+                                              Path=Header,
+                                              Mode=OneWay,
+                                              Converter={StaticResource ToUpperConverter}}">
+                            <TextElement.Foreground>
+                                <MultiBinding Converter="{x:Static Converters:BackgroundToForegroundConverter.Instance}">
+                                    <Binding Mode="OneWay"
+                                         Path="Background"
+                                         RelativeSource="{RelativeSource FindAncestor,
+                                                                         AncestorType={x:Type Expander}}" />
+                                    <Binding Mode="OneWay"
+                                         Path="(Controls:GroupBoxHelper.HeaderForeground)"
+                                         RelativeSource="{RelativeSource FindAncestor,
+                                                                         AncestorType={x:Type Expander}}" />
+                                </MultiBinding>
+                            </TextElement.Foreground>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Expander}">
+                        <Grid>
+                            <vsm:VisualStateManager.VisualStateGroups>
+                                <vsm:VisualStateGroup x:Name="CommonStates">
+                                    <vsm:VisualState x:Name="Normal" />
+                                    <vsm:VisualState x:Name="MouseOver" />
+                                    <vsm:VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity"
+                                                                       Storyboard.TargetName="DisabledVisualElement">
+                                                <SplineDoubleKeyFrame KeyTime="0"
+                                                                  Value="0.7" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="ExpanderRoot">
+                                                <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="0.3" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </vsm:VisualState>
+                                </vsm:VisualStateGroup>
+                            </vsm:VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="DisabledVisualElement"
+                                   Fill="{DynamicResource ControlsDisabledBrush}"
+                                   IsHitTestVisible="false"
+                                   Opacity="0" />
+                            <DockPanel x:Name="ExpanderRoot">
+                                <Border x:Name="HeaderSite" Width="100"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1"
+                                    DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <ContentPresenter Margin="5,5,5,0"
+                                                      Content="{TemplateBinding Header}"
+                                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                      ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                                      RecognizesAccessKey="True"
+                                                      TextElement.FontSize="10"
+                                                      TextElement.FontStretch="{TemplateBinding Controls:ControlsHelper.HeaderFontStretch}"
+                                                      TextElement.FontWeight="{TemplateBinding Controls:ControlsHelper.HeaderFontWeight}" />
+                                        <ToggleButton x:Name="ToggleSite"
+                                                  Margin="0,0,0,0"
+                                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Background="Transparent"
+                                                  BorderBrush="Transparent"
+                                                  DockPanel.Dock="Left"
+                                                  FocusVisualStyle="{x:Null}"
+                                                  IsChecked="{Binding IsExpanded,
+                                                                  Mode=TwoWay,
+                                                                  RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Style="{StaticResource ExpanderDownHeaderStyle}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="ExpandSite"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Background="Transparent"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1,0,1,1"
+                                    DockPanel.Dock="Bottom"
+                                    Focusable="false"
+                                    Opacity="0"
+                                    Visibility="Collapsed">
+                                    <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  Cursor="{TemplateBinding Cursor}" />
+                                </Border>
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded"
+                                 Value="true">
+                                <Setter TargetName="ExpandSite"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.25"
+                                                         Storyboard.TargetName="ExpandSite"
+                                                         Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                         To="1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.25"
+                                                         Storyboard.TargetName="ExpandSite"
+                                                         Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                         To="0" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection"
+                                 Value="Right">
+                                <Setter TargetName="ExpandSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Right" />
+                                <Setter TargetName="ExpandSite"
+                                    Property="BorderThickness"
+                                    Value="0,1,1,1" />
+                                <Setter TargetName="HeaderSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Left" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="Style"
+                                    Value="{StaticResource ExpanderRightHeaderStyle}" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Top" />
+                            </Trigger>
+                            <Trigger Property="ExpandDirection"
+                                 Value="Up">
+                                <Setter TargetName="ExpandSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Top" />
+                                <Setter TargetName="ExpandSite"
+                                    Property="BorderThickness"
+                                    Value="1,1,1,0" />
+                                <Setter TargetName="HeaderSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Bottom" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="Style"
+                                    Value="{StaticResource ExpanderUpHeaderStyle}" />
+                            </Trigger>
+                            <Trigger Property="ExpandDirection"
+                                 Value="Left">
+                                <Setter TargetName="ExpandSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Left" />
+                                <Setter TargetName="ExpandSite"
+                                    Property="BorderThickness"
+                                    Value="1,1,0,1" />
+                                <Setter TargetName="HeaderSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Right" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="Style"
+                                    Value="{StaticResource ExpanderLeftHeaderStyle}" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Top" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                 Value="false">
+                                <Setter Property="Foreground"
+                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    
+<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3.8*"/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0"  HorizontalAlignment="Center" Grid.ColumnSpan="2" VerticalAlignment="Center" >
+            <Label Content="{x:Static res:Resources.LanguageLabel}" Margin="0 0 20 0"></Label >
+            <ComboBox Width="150" Style="{StaticResource CheckBoxStyle}" VerticalAlignment="Center" Height="24" MinHeight="24" SelectedValuePath="Content" IsSynchronizedWithCurrentItem="True"
+                      SelectedValue="{Binding Path=Culture, Mode=TwoWay, Converter={StaticResource CultureConverter}}">
+                <ComboBoxItem Content="English"></ComboBoxItem>
+                <ComboBoxItem Content="Українська"></ComboBoxItem>
+                <ComboBoxItem Content="Русский"></ComboBoxItem>
+            </ComboBox>
+        </StackPanel>
+        <Label Content="{x:Static res:Resources.SeasonGapLabel}" Grid.Row="1" Grid.Column="0" Style="{DynamicResource MetroLabel}" VerticalAlignment="Center"
+               HorizontalAlignment="Left"/>
+        <Controls:NumericUpDown x:Name="SeasonBal" Value="{Binding Path=SeasonBal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="1" Grid.Column="1" Minimum="10" Margin="0,0,5,0"/>
+        <Label Content="{x:Static res:Resources.SeriesGapLabel}" Grid.Row="2" Grid.Column="0" Style="{DynamicResource MetroLabel}"  VerticalAlignment="Center"
+               HorizontalAlignment="Left"/>
+        <Controls:NumericUpDown x:Name="SeriesBal" Value="{Binding Path=SeriesBal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="2" Grid.Column="1" Minimum="1" Margin="0,0,5,0"/>
+        <Label Content="{x:Static res:Resources.AllTimeGapLabel}" Grid.Row="3" Grid.Column="0" Style="{DynamicResource MetroLabel}"  VerticalAlignment="Center"
+               HorizontalAlignment="Left"/>
+        <Controls:NumericUpDown x:Name="AllTimeBal" Value="{Binding Path=AllTimeBal, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Grid.Row="3" Grid.Column="1" Minimum="1" Margin="0,0,5,0"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="4" HorizontalAlignment="Center" Grid.ColumnSpan="2">
+            <Label Content="{x:Static res:Resources.ApplyRatioLabel}" Style="{DynamicResource MetroLabel}"  VerticalAlignment="Center"></Label>
+            <CheckBox IsChecked="{Binding Path=ApplyRatio, Mode=TwoWay}" Margin="20 0 0 0"></CheckBox>
+        </StackPanel>
+        <Label Content="{x:Static res:Resources.ChangeNickLabel}" Grid.ColumnSpan="2" Style="{DynamicResource MetroLabel}" Grid.Row="5" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="6" Orientation="Horizontal">
+            <toolkit:AutoCompleteBox x:Name="BeforeNick" Height="25" Width="125" Text="{Binding Path=NickBefore, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     ItemsSource="{Binding Path=NicksCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="{DynamicResource ControlBackgroundBrush}"
+                                     Foreground="{DynamicResource TextBrush}"
+                                     BorderBrush="{DynamicResource TextBoxBorderBrush}"/>
+            <Canvas Width="20" Height="10" Margin="5,0,0,0">
+                <Path Fill="{DynamicResource GrayBrush1}" Data="M 0 12 L 16 6 L 0 0 Z"/>
+            </Canvas>
+            <TextBox x:Name="AfterNick" Text="{Binding Path=NickAfter, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                     Height="25" Width="125"
+                     Background="{DynamicResource ControlBackgroundBrush}"
+                     Foreground="{DynamicResource TextBrush}"
+                     BorderBrush="{DynamicResource GrayBrush5}"/>
+        </StackPanel>
+        <Label Content="{x:Static res:Resources.AdditionalScoreLabel}" Grid.ColumnSpan="2" Style="{DynamicResource MetroLabel}" Grid.Row="7" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" Grid.ColumnSpan="2" Grid.Row="8" Orientation="Horizontal">
+            <toolkit:AutoCompleteBox x:Name="ExtraScoreNick" Height="25" Width="170" Text="{Binding Path=ExtraScoreNick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     ItemsSource="{Binding Path=NicksCollection, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     Background="{DynamicResource ControlBackgroundBrush}" Foreground="{DynamicResource TextBrush}" BorderBrush="{DynamicResource TextBoxBorderBrush}"/>
+            <Canvas Width="20" Height="10" Margin="5,0,0,0">
+                <Path Fill="{DynamicResource GrayBrush1}" Data="M 0 12 L 16 6 L 0 0 Z"/>
+            </Canvas>
+            <Controls:NumericUpDown x:Name="ExtraScoreValue" Value="{Binding Path=ExtraScoreValue, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                            HorizontalAlignment="Stretch" VerticalAlignment="Center" Width="80" Margin="0,0,5,0"/>
+        </StackPanel>
+        <Expander Style="{DynamicResource MetroExpander}" VerticalAlignment="Top" Height="60" Grid.Row="9" HorizontalAlignment="Stretch" Header="Advanced"
+                  Grid.ColumnSpan="2" ExpandDirection="Down">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Style="{DynamicResource MetroAccentButton}" Command="{Binding Path=DropSeasonTable}" Width="120" Content="{x:Static res:Resources.DropSeasonLabel}" FontSize="8"
+                        Margin="0,0,10,0"/>
+                <Button Style="{DynamicResource MetroAccentButton}" Command="{Binding Path=DropSeriesTable}" Width="120" Content="{x:Static res:Resources.DropSeriesLabel}" FontSize="8"/>
+            </StackPanel>
+        </Expander>
+        <Button Style="{DynamicResource MetroAccentButton}" Grid.Row="10" Command="{Binding Path=ChangeSettings}" VerticalAlignment="Center"
+                HorizontalAlignment="Center" Grid.ColumnSpan="2" Content="{x:Static res:Resources.AcceptChangesLabel}" Width="120" Height="30" />
+    </Grid>
+</Controls:MetroWindow>

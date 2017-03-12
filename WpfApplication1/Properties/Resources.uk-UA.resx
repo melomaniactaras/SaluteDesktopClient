@@ -1,0 +1,915 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AcceptChangesLabel" xml:space="preserve">
+    <value>ЗАСТОСУВАТИ </value>
+  </data>
+  <data name="AdditionalScoreLabel" xml:space="preserve">
+    <value>Додаткові бали:</value>
+  </data>
+  <data name="AllTimeButton" xml:space="preserve">
+    <value>ЗАГАЛЬНИЙ</value>
+  </data>
+  <data name="AllTimeGapLabel" xml:space="preserve">
+    <value>Прохідний бал для загального рейтингу:</value>
+  </data>
+  <data name="BackupDb" xml:space="preserve">
+    <value>Резервувати БД</value>
+  </data>
+  <data name="BanHeader" xml:space="preserve">
+    <value>Бан</value>
+  </data>
+  <data name="BanTooltip" xml:space="preserve">
+    <value>Кількість видалень</value>
+  </data>
+  <data name="BestChoiceHeader" xml:space="preserve">
+    <value>Кр. хід</value>
+  </data>
+  <data name="BestChoiceLabel" xml:space="preserve">
+    <value>Кращий хід:</value>
+  </data>
+  <data name="BestChoiceTooltip" xml:space="preserve">
+    <value>Кількість вірно названих 'кращих ходів'</value>
+  </data>
+  <data name="BestHeader" xml:space="preserve">
+    <value>КРАЩИЙ</value>
+  </data>
+  <data name="BestPlayerHeader" xml:space="preserve">
+    <value>Кращий</value>
+  </data>
+  <data name="BestPlayerTooltip" xml:space="preserve">
+    <value>Скільки разів визначався кращим гравцем</value>
+  </data>
+  <data name="BlackLabel" xml:space="preserve">
+    <value>Мафія</value>
+  </data>
+  <data name="BlackUgadHeader" xml:space="preserve">
+    <value>Мф.угад.</value>
+  </data>
+  <data name="BlackUgadTooltip" xml:space="preserve">
+    <value>Кількість чорних перемог в угадайці</value>
+  </data>
+  <data name="ChangeNickLabel" xml:space="preserve">
+    <value>Змінити нік:</value>
+  </data>
+  <data name="CheckWindowTitle" xml:space="preserve">
+    <value>ЗВІРКИ</value>
+  </data>
+  <data name="ComboWinLabel" xml:space="preserve">
+    <value>5 перемог</value>
+  </data>
+  <data name="CountButton" xml:space="preserve">
+    <value>ПІДРАХУВАТИ</value>
+  </data>
+  <data name="CreateInfographics" xml:space="preserve">
+    <value>Інфографіка</value>
+  </data>
+  <data name="Database" xml:space="preserve">
+    <value>БАЗА ДАНИХ</value>
+  </data>
+  <data name="Date" xml:space="preserve">
+    <value>дата</value>
+  </data>
+  <data name="Day" xml:space="preserve">
+    <value>День</value>
+  </data>
+  <data name="DonButton" xml:space="preserve">
+    <value>ДОН</value>
+  </data>
+  <data name="DonCheck" xml:space="preserve">
+    <value>ЗВІРКА ДОНА:</value>
+  </data>
+  <data name="DropSeasonLabel" xml:space="preserve">
+    <value>ОЧИСТИТИ СЕЗОН</value>
+  </data>
+  <data name="DropSeriesLabel" xml:space="preserve">
+    <value>ОЧИСТИТИ СЕРІЮ</value>
+  </data>
+  <data name="Edit" xml:space="preserve">
+    <value>НАЛАШТУВАННЯ</value>
+  </data>
+  <data name="EpicSeriesLabel" xml:space="preserve">
+    <value>Епічна серія</value>
+  </data>
+  <data name="EpicWfLabel" xml:space="preserve">
+    <value>10 без фолів</value>
+  </data>
+  <data name="EpicWinLabel" xml:space="preserve">
+    <value>10 перемог</value>
+  </data>
+  <data name="Exit" xml:space="preserve">
+    <value>Вийти</value>
+  </data>
+  <data name="ExportButton" xml:space="preserve">
+    <value>ЕКСПОРТ</value>
+  </data>
+  <data name="FalseCom" xml:space="preserve">
+    <value>ЛЖЕШЕРИФ:</value>
+  </data>
+  <data name="FemaleLabel" xml:space="preserve">
+    <value>Ж</value>
+  </data>
+  <data name="File" xml:space="preserve">
+    <value>ФАЙЛ</value>
+  </data>
+  <data name="FoulsHeader" xml:space="preserve">
+    <value>ФОЛИ</value>
+  </data>
+  <data name="FoulsTooltip" xml:space="preserve">
+    <value>Кількість фолів</value>
+  </data>
+  <data name="Game" xml:space="preserve">
+    <value>гра</value>
+  </data>
+  <data name="GameSeries" xml:space="preserve">
+    <value>серія ігор</value>
+  </data>
+  <data name="GamesHeader" xml:space="preserve">
+    <value>Ігри</value>
+  </data>
+  <data name="GamesLabel" xml:space="preserve">
+    <value>ІГРИ:</value>
+  </data>
+  <data name="GamesTooltip" xml:space="preserve">
+    <value>Кількість ігор</value>
+  </data>
+  <data name="Graphs" xml:space="preserve">
+    <value>Графіки</value>
+  </data>
+  <data name="Info" xml:space="preserve">
+    <value>ІНФО</value>
+  </data>
+  <data name="InfoAverage" xml:space="preserve">
+    <value>Середня к-сть</value>
+  </data>
+  <data name="InfoBan" xml:space="preserve">
+    <value>видалень</value>
+  </data>
+  <data name="InfoBest" xml:space="preserve">
+    <value>Кращий</value>
+  </data>
+  <data name="InfoBlack" xml:space="preserve">
+    <value>Перемог</value>
+  </data>
+  <data name="InfoBlackWins" xml:space="preserve">
+    <value>мафією</value>
+  </data>
+  <data name="InfoCheck" xml:space="preserve">
+    <value>звірки</value>
+  </data>
+  <data name="InfoClear" xml:space="preserve">
+    <value>Всуху</value>
+  </data>
+  <data name="InfoClearBlack" xml:space="preserve">
+    <value>мафією</value>
+  </data>
+  <data name="InfoClearRed" xml:space="preserve">
+    <value>мирним</value>
+  </data>
+  <data name="InfoDon" xml:space="preserve">
+    <value>Перемог</value>
+  </data>
+  <data name="InfoDonWins" xml:space="preserve">
+    <value>доном</value>
+  </data>
+  <data name="InfoFc" xml:space="preserve">
+    <value>Перемог</value>
+  </data>
+  <data name="InfoFcWins" xml:space="preserve">
+    <value>лжекомом</value>
+  </data>
+  <data name="InfoFirstNight" xml:space="preserve">
+    <value>в 1 ніч</value>
+  </data>
+  <data name="InfoFouls" xml:space="preserve">
+    <value>фолів за гру</value>
+  </data>
+  <data name="InfographicsTooltip" xml:space="preserve">
+    <value>Персональна інфографіка</value>
+  </data>
+  <data name="InfoInUgad" xml:space="preserve">
+    <value>в угадайці</value>
+  </data>
+  <data name="InfoInUgadBlack" xml:space="preserve">
+    <value>Мафією</value>
+  </data>
+  <data name="InfoInUgadRed" xml:space="preserve">
+    <value>Мирним</value>
+  </data>
+  <data name="InfoKilled" xml:space="preserve">
+    <value>Вбитий</value>
+  </data>
+  <data name="InfoPercent" xml:space="preserve">
+    <value>Відсоток</value>
+  </data>
+  <data name="InfoPlayer" xml:space="preserve">
+    <value>гравець</value>
+  </data>
+  <data name="InfoRatio" xml:space="preserve">
+    <value>Частота</value>
+  </data>
+  <data name="InfoRed" xml:space="preserve">
+    <value>Перемог</value>
+  </data>
+  <data name="InfoRedWins" xml:space="preserve">
+    <value>мирним</value>
+  </data>
+  <data name="InfoSheriff" xml:space="preserve">
+    <value>шерифом</value>
+  </data>
+  <data name="InfoWins" xml:space="preserve">
+    <value>Перемог</value>
+  </data>
+  <data name="KilledFirstHeader" xml:space="preserve">
+    <value>1йВбитий</value>
+  </data>
+  <data name="KilledFirstTooltip" xml:space="preserve">
+    <value>Скільки разів був першим вбитим в першу ніч</value>
+  </data>
+  <data name="KillsLabel" xml:space="preserve">
+    <value>Вбивства:</value>
+  </data>
+  <data name="LanguageLabel" xml:space="preserve">
+    <value>Мова:</value>
+  </data>
+  <data name="LoseHeader" xml:space="preserve">
+    <value>Пораз.</value>
+  </data>
+  <data name="LoseTooltip" xml:space="preserve">
+    <value>Кількість поразок</value>
+  </data>
+  <data name="MaleLabel" xml:space="preserve">
+    <value>М</value>
+  </data>
+  <data name="Maximum" xml:space="preserve">
+    <value>МАКСИМУМ:</value>
+  </data>
+  <data name="Minimum" xml:space="preserve">
+    <value>МІНІМУМ:</value>
+  </data>
+  <data name="Mishit" xml:space="preserve">
+    <value>Промах</value>
+  </data>
+  <data name="New" xml:space="preserve">
+    <value>Новий</value>
+  </data>
+  <data name="NewWeek" xml:space="preserve">
+    <value>Новий тиждень</value>
+  </data>
+  <data name="NickHeader" xml:space="preserve">
+    <value>НІК</value>
+  </data>
+  <data name="NickTooltip" xml:space="preserve">
+    <value>Ігровий нік</value>
+  </data>
+  <data name="Night" xml:space="preserve">
+    <value>Ніч</value>
+  </data>
+  <data name="NotInRating" xml:space="preserve">
+    <value>Гравці, які поки що не в рейтингу:</value>
+  </data>
+  <data name="Open" xml:space="preserve">
+    <value>Відкрити</value>
+  </data>
+  <data name="OpenDb" xml:space="preserve">
+    <value>Відкрити БД</value>
+  </data>
+  <data name="PlayerButton" xml:space="preserve">
+    <value>ПЛЕЄР</value>
+  </data>
+  <data name="PlayersLabel" xml:space="preserve">
+    <value>Гравців:</value>
+  </data>
+  <data name="RatingHeader" xml:space="preserve">
+    <value>Рейтинг</value>
+  </data>
+  <data name="RatingLabel" xml:space="preserve">
+    <value>РЕЙТИНГ:</value>
+  </data>
+  <data name="RatingTooltip" xml:space="preserve">
+    <value>Ігровий рейтинг</value>
+  </data>
+  <data name="RedLabel" xml:space="preserve">
+    <value>Мирні</value>
+  </data>
+  <data name="RedUgadHeader" xml:space="preserve">
+    <value>Мж.угад.</value>
+  </data>
+  <data name="RedUgadTooltip" xml:space="preserve">
+    <value>Кількість мирних перемог в угадайці</value>
+  </data>
+  <data name="ResultHeader" xml:space="preserve">
+    <value>БАЛИ</value>
+  </data>
+  <data name="RoleHeader" xml:space="preserve">
+    <value>РОЛЬ</value>
+  </data>
+  <data name="Save" xml:space="preserve">
+    <value>Зберегти</value>
+  </data>
+  <data name="SaveDb" xml:space="preserve">
+    <value>Зберегти в БД</value>
+  </data>
+  <data name="ScoreHeader" xml:space="preserve">
+    <value>Бали</value>
+  </data>
+  <data name="ScoreLabel" xml:space="preserve">
+    <value>БАЛИ:</value>
+  </data>
+  <data name="ScoreTooltip" xml:space="preserve">
+    <value>Загальна кількість балів</value>
+  </data>
+  <data name="SearchButton" xml:space="preserve">
+    <value>ПОШУК</value>
+  </data>
+  <data name="SeasonButton" xml:space="preserve">
+    <value>СЕЗОН</value>
+  </data>
+  <data name="SeasonDynamicsLabel" xml:space="preserve">
+    <value>ДИНАМІКА СЕЗОНУ:</value>
+  </data>
+  <data name="SeasonGapLabel" xml:space="preserve">
+    <value>Прохідний бал для рейтингу сезону:</value>
+  </data>
+  <data name="SeriesButton" xml:space="preserve">
+    <value>СЕРІЯ</value>
+  </data>
+  <data name="SeriesDynamicsLabel" xml:space="preserve">
+    <value>ДИНАМІКА СЕРІЇ:</value>
+  </data>
+  <data name="SeriesGapLabel" xml:space="preserve">
+    <value>Прохідний бал для рейтингу серії:</value>
+  </data>
+  <data name="SeriesLabel" xml:space="preserve">
+    <value>Серія:</value>
+  </data>
+  <data name="Setting" xml:space="preserve">
+    <value>Налаштування</value>
+  </data>
+  <data name="SettingsHeader" xml:space="preserve">
+    <value>НАЛАШТУВАННЯ</value>
+  </data>
+  <data name="SheriffButton" xml:space="preserve">
+    <value>ШЕРИФ</value>
+  </data>
+  <data name="SheriffFirstCheck" xml:space="preserve">
+    <value>ШЕРИФ 1 НІЧ:</value>
+  </data>
+  <data name="SheriffFirstNightLabel" xml:space="preserve">
+    <value>Шериф не отримує -1</value>
+  </data>
+  <data name="SheriffSecondCheck" xml:space="preserve">
+    <value>ШЕРИФ 2 НІЧ:</value>
+  </data>
+  <data name="Statistics" xml:space="preserve">
+    <value>Статистика</value>
+  </data>
+  <data name="StBans" xml:space="preserve">
+    <value>ВИДАЛЕНЬ:</value>
+  </data>
+  <data name="StBansTooltip" xml:space="preserve">
+    <value>Загальна кількість видалень</value>
+  </data>
+  <data name="StBestPlayer" xml:space="preserve">
+    <value>КРАЩИЙ ГРАВЕЦЬ:</value>
+  </data>
+  <data name="StBestPlayersTotalTooltip" xml:space="preserve">
+    <value>Загальна кількість ігор, де визначався кращий гравець</value>
+  </data>
+  <data name="StBestPlayerTooltip" xml:space="preserve">
+    <value>Десять гравців, яких найчастіше називали кращими</value>
+  </data>
+  <data name="StBestWay" xml:space="preserve">
+    <value>КРАЩИЙ ХІД:</value>
+  </data>
+  <data name="StBestWayListTooltip" xml:space="preserve">
+    <value>Гравці, яких найчастіше вбивають в першу ніч</value>
+  </data>
+  <data name="StBestWayTooltip" xml:space="preserve">
+    <value>Загальна кількість ігор, де був названий повний кращий хід</value>
+  </data>
+  <data name="StDonWins" xml:space="preserve">
+    <value>ПЕРЕМОГИ ДОНОМ:</value>
+  </data>
+  <data name="StDonWinsTooltip" xml:space="preserve">
+    <value>Гравці, що мають найкраще співвідношення перемог та поразок доном</value>
+  </data>
+  <data name="StFalseCom" xml:space="preserve">
+    <value>ЛЖЕШЕРИФ: (%):</value>
+  </data>
+  <data name="StFalseComTooltip" xml:space="preserve">
+    <value>Найуспішніший лжешериф</value>
+  </data>
+  <data name="StFnChecked" xml:space="preserve">
+    <value>ЗВІРЕНО В 1 НІЧ (%):</value>
+  </data>
+  <data name="StFnCheckedTooltip" xml:space="preserve">
+    <value>Гравці, яких найчастіше звіряє шериф в 1 ніч</value>
+  </data>
+  <data name="StFnKilled" xml:space="preserve">
+    <value>ВБИТО В 1 НІЧ (%):</value>
+  </data>
+  <data name="StFnKilledTooltip" xml:space="preserve">
+    <value>Гравці, яких найчастіше вбивають в першу ніч</value>
+  </data>
+  <data name="StFouls" xml:space="preserve">
+    <value>ФОЛІВ:</value>
+  </data>
+  <data name="StFoulsAverage" xml:space="preserve">
+    <value>СЕР. К-СТЬ ФОЛІВ ЗА ГРУ:</value>
+  </data>
+  <data name="StFoulsAverageTooltip" xml:space="preserve">
+    <value>Гравці, які отримують найменше фолів за гру</value>
+  </data>
+  <data name="StFoulsTooltip" xml:space="preserve">
+    <value>Загальна кількість фолів</value>
+  </data>
+  <data name="StGames" xml:space="preserve">
+    <value>ЛІДЕРИ ЗА КІЛЬКІСТЮ ІГОР:</value>
+  </data>
+  <data name="StGamesTooltip" xml:space="preserve">
+    <value>Лідери за загальною кількістю ігор</value>
+  </data>
+  <data name="StGuessingTooltip" xml:space="preserve">
+    <value>Кількість ігор з угадайкою</value>
+  </data>
+  <data name="StPlayers" xml:space="preserve">
+    <value>ГРАВЦІВ:</value>
+  </data>
+  <data name="StPlayersTooltip" xml:space="preserve">
+    <value>Загальна кількість гравців</value>
+  </data>
+  <data name="StSheriffWins" xml:space="preserve">
+    <value>ПЕРЕМОГИ ШЕРИФОМ:</value>
+  </data>
+  <data name="StSheriffWinsTooltip" xml:space="preserve">
+    <value>Гравці, що мають найкраще співвідношення перемог та поразок шерифом</value>
+  </data>
+  <data name="StThreeZv" xml:space="preserve">
+    <value>ТРИ ЗВІРКИ:</value>
+  </data>
+  <data name="StThreeZvTooltip" xml:space="preserve">
+    <value>Загальна кількість ігор, де шериф здійснив три чорних звірки</value>
+  </data>
+  <data name="StWinLoseRatio" xml:space="preserve">
+    <value>ПЕРЕМОГИ/ПОРАЗКИ:</value>
+  </data>
+  <data name="StWinLoseRatioTooltip" xml:space="preserve">
+    <value>Лідери за співвідношенням перемоги/поразки</value>
+  </data>
+  <data name="Table" xml:space="preserve">
+    <value>стіл</value>
+  </data>
+  <data name="TechBlackHeader" xml:space="preserve">
+    <value>Тех.чор.</value>
+  </data>
+  <data name="TechBlackLabel" xml:space="preserve">
+    <value>Чиста перемога мафії</value>
+  </data>
+  <data name="TechBlackTooltip" xml:space="preserve">
+    <value>Кількість технічних чорних перемог</value>
+  </data>
+  <data name="TechRedHeader" xml:space="preserve">
+    <value>Тех.мир.</value>
+  </data>
+  <data name="TechRedLabel" xml:space="preserve">
+    <value>Чиста перемога мирних</value>
+  </data>
+  <data name="TechRedToolltip" xml:space="preserve">
+    <value>Кількість технічних мирних перемог</value>
+  </data>
+  <data name="ThreeZvButton" xml:space="preserve">
+    <value>Три звірки</value>
+  </data>
+  <data name="ThreeZvHeader" xml:space="preserve">
+    <value>3зв</value>
+  </data>
+  <data name="ThreeZvTooltip" xml:space="preserve">
+    <value>Скільки разів зроблено три влучні звірки</value>
+  </data>
+  <data name="Time" xml:space="preserve">
+    <value>час</value>
+  </data>
+  <data name="TimerButton" xml:space="preserve">
+    <value>ТАЙМЕР</value>
+  </data>
+  <data name="TimerLong" xml:space="preserve">
+    <value>1 хв</value>
+  </data>
+  <data name="TimerReset" xml:space="preserve">
+    <value>СКИНУТИ</value>
+  </data>
+  <data name="TimerShort" xml:space="preserve">
+    <value>30 сек</value>
+  </data>
+  <data name="TimerStart" xml:space="preserve">
+    <value>СТАРТ/СТОП</value>
+  </data>
+  <data name="Total" xml:space="preserve">
+    <value>Всього:</value>
+  </data>
+  <data name="TotalEnd" xml:space="preserve">
+    <value>ігор</value>
+  </data>
+  <data name="UgadaykaLabel" xml:space="preserve">
+    <value>Угадайка</value>
+  </data>
+  <data name="VotingLabel" xml:space="preserve">
+    <value>Виставлення:</value>
+  </data>
+  <data name="WeekButton" xml:space="preserve">
+    <value>ТИЖДЕНЬ</value>
+  </data>
+  <data name="WeekStat" xml:space="preserve">
+    <value>Статистика тижня:</value>
+  </data>
+  <data name="WinBlackHeader" xml:space="preserve">
+    <value>Мафія</value>
+  </data>
+  <data name="WinBlackTooltip" xml:space="preserve">
+    <value>Кількість перемог мафією</value>
+  </data>
+  <data name="WinDonHeader" xml:space="preserve">
+    <value>Дон</value>
+  </data>
+  <data name="WinDonTooltip" xml:space="preserve">
+    <value>Кількість перемог доном</value>
+  </data>
+  <data name="WinHeader" xml:space="preserve">
+    <value>Перемоги</value>
+  </data>
+  <data name="WinRedHeader" xml:space="preserve">
+    <value>Мирний</value>
+  </data>
+  <data name="WinRedTooltip" xml:space="preserve">
+    <value>Кількість перемог мирним</value>
+  </data>
+  <data name="WinRowHeader" xml:space="preserve">
+    <value>Серія</value>
+  </data>
+  <data name="WinRowTooltip" xml:space="preserve">
+    <value>Кількість перемог підряд</value>
+  </data>
+  <data name="WinSheriffHeader" xml:space="preserve">
+    <value>Шериф</value>
+  </data>
+  <data name="WinSheriffTooltip" xml:space="preserve">
+    <value>Кількість перемог шерифом</value>
+  </data>
+  <data name="WinTooltip" xml:space="preserve">
+    <value>Кількість перемог</value>
+  </data>
+  <data name="AddNewPlayersMessage" xml:space="preserve">
+    <value>Добавити в базу нових гравців?</value>
+  </data>
+  <data name="AddToDbMessage" xml:space="preserve">
+    <value>Добавити результати до бази?</value>
+  </data>
+  <data name="Best" xml:space="preserve">
+    <value>Кращий</value>
+  </data>
+  <data name="BestPlayer" xml:space="preserve">
+    <value>Кращий гравець</value>
+  </data>
+  <data name="Black" xml:space="preserve">
+    <value>Мафія</value>
+  </data>
+  <data name="ChangeLanguageMessage" xml:space="preserve">
+    <value>Програму потрібно перезавантажити. Зробити це зараз?</value>
+  </data>
+  <data name="CreateNewProtocolMessage" xml:space="preserve">
+    <value>Створити новий протокол?</value>
+  </data>
+  <data name="DateLabel" xml:space="preserve">
+    <value>Дата</value>
+  </data>
+  <data name="DbRefreshedMessage" xml:space="preserve">
+    <value>Базу даних оновлено</value>
+  </data>
+  <data name="DbSuccessMessage" xml:space="preserve">
+    <value>База даних успішно оновлена.</value>
+  </data>
+  <data name="Disqualify" xml:space="preserve">
+    <value>Дискваліфікувати гравця №</value>
+  </data>
+  <data name="DisqualifyLabel" xml:space="preserve">
+    <value>ДИСКВАЛІФІКАЦІЯ</value>
+  </data>
+  <data name="Don" xml:space="preserve">
+    <value>Дон</value>
+  </data>
+  <data name="Error" xml:space="preserve">
+    <value>Помилка</value>
+  </data>
+  <data name="InfoBlackSlice" xml:space="preserve">
+    <value>Маф</value>
+  </data>
+  <data name="InfoDonSlice" xml:space="preserve">
+    <value>Дон</value>
+  </data>
+  <data name="InfoLoseLabel" xml:space="preserve">
+    <value>Поразки</value>
+  </data>
+  <data name="InfoRedSlice" xml:space="preserve">
+    <value>Мир</value>
+  </data>
+  <data name="InfoSheriffSlice" xml:space="preserve">
+    <value>Ш</value>
+  </data>
+  <data name="InfoWinLabel" xml:space="preserve">
+    <value>Перемоги</value>
+  </data>
+  <data name="NewWeekErrorMessage" xml:space="preserve">
+    <value>Таблиця тижня не знайдена</value>
+  </data>
+  <data name="NewWeekSuccessMessage" xml:space="preserve">
+    <value>Новий тиждень розпочато</value>
+  </data>
+  <data name="NickChangedMessage" xml:space="preserve">
+    <value>Нік було змінено</value>
+  </data>
+  <data name="PtsAddedMessage" xml:space="preserve">
+    <value>Бали додано</value>
+  </data>
+  <data name="Red" xml:space="preserve">
+    <value>Мирний</value>
+  </data>
+  <data name="SameNicksMessage" xml:space="preserve">
+    <value>Введені одинакові ніки</value>
+  </data>
+  <data name="SeasonDroppedMessage" xml:space="preserve">
+    <value>Таблицю сезону обнулено</value>
+  </data>
+  <data name="SelectWinnersMessage" xml:space="preserve">
+    <value>Виберіть команду-переможця</value>
+  </data>
+  <data name="SeriesDroppedMessage" xml:space="preserve">
+    <value>Таблицю серії обнулено</value>
+  </data>
+  <data name="SettingsNotFoundError" xml:space="preserve">
+    <value>Файл налаштувань не знайдено</value>
+  </data>
+  <data name="Sheriff" xml:space="preserve">
+    <value>Шериф</value>
+  </data>
+  <data name="StAllTimeError" xml:space="preserve">
+    <value>Таблиця за весь час не знайдена</value>
+  </data>
+  <data name="StAllTimeTitle" xml:space="preserve">
+    <value>СТАТИСТИКА ЗА ВЕСЬ ЧАС</value>
+  </data>
+  <data name="StartNewWeekMessage" xml:space="preserve">
+    <value>Розпочати новий тиждень?</value>
+  </data>
+  <data name="StBlackLabel" xml:space="preserve">
+    <value>Мафія</value>
+  </data>
+  <data name="StBlackSlice1" xml:space="preserve">
+    <value>Перемога</value>
+  </data>
+  <data name="StBlackSlice2" xml:space="preserve">
+    <value>мафії</value>
+  </data>
+  <data name="StClearLabel" xml:space="preserve">
+    <value>всуху</value>
+  </data>
+  <data name="StRedLabel" xml:space="preserve">
+    <value>Мирні</value>
+  </data>
+  <data name="StRedSlice1" xml:space="preserve">
+    <value>Перемога</value>
+  </data>
+  <data name="StRedSlice2" xml:space="preserve">
+    <value>мирних</value>
+  </data>
+  <data name="StSeasonError" xml:space="preserve">
+    <value>Таблиця сезону не знайдена</value>
+  </data>
+  <data name="StSeasonTitle" xml:space="preserve">
+    <value>СТАТИСТИКА СЕЗОНУ</value>
+  </data>
+  <data name="StSeriesError" xml:space="preserve">
+    <value>Таблиця серії не знайдена</value>
+  </data>
+  <data name="StSeriesTitle" xml:space="preserve">
+    <value>СТАТИСТИКА СЕРІЇ</value>
+  </data>
+  <data name="StTotalGames" xml:space="preserve">
+    <value>ВСЬОГО ІГОР:</value>
+  </data>
+  <data name="StUgadPart1" xml:space="preserve">
+    <value>УГАДАЙКА: </value>
+  </data>
+  <data name="StUgadPart2" xml:space="preserve">
+    <value>ІГОР</value>
+  </data>
+  <data name="StWeekError" xml:space="preserve">
+    <value>Таблиця тижня не знайдена</value>
+  </data>
+  <data name="StWeekTitle" xml:space="preserve">
+    <value>СТАТИСТИКА ТИЖНЯ</value>
+  </data>
+  <data name="TimeLabel" xml:space="preserve">
+    <value>Час</value>
+  </data>
+  <data name="WrongFalseComMessage" xml:space="preserve">
+    <value>Невірно вказаний лжешериф</value>
+  </data>
+  <data name="WrongNicksMessage" xml:space="preserve">
+    <value>Невірно введені ніки</value>
+  </data>
+  <data name="WrongResultsMessage" xml:space="preserve">
+    <value>Невірно введені результати гри</value>
+  </data>
+  <data name="WrongRolesMessage" xml:space="preserve">
+    <value>Неправильно введені ролі</value>
+  </data>
+  <data name="Autumn" xml:space="preserve">
+    <value>Осіння</value>
+  </data>
+  <data name="Best1" xml:space="preserve">
+    <value>Кращий 1</value>
+  </data>
+  <data name="Best2" xml:space="preserve">
+    <value>Кращий 2</value>
+  </data>
+  <data name="Best3" xml:space="preserve">
+    <value>Кращий 3</value>
+  </data>
+  <data name="ChAllTimeHeader" xml:space="preserve">
+    <value>РЕЙТИНГ ЗА ВЕСЬ ЧАС</value>
+  </data>
+  <data name="ChSeasonHeader" xml:space="preserve">
+    <value>РЕЙТИНГ СЕЗОНУ</value>
+  </data>
+  <data name="ChSeriesHeader" xml:space="preserve">
+    <value>РЕЙТИНГ СЕРІЇ</value>
+  </data>
+  <data name="ChWeekHeader" xml:space="preserve">
+    <value>РЕЙТИНГ ТИЖНЯ</value>
+  </data>
+  <data name="ComboWfText" xml:space="preserve">
+    <value>10 ігор без фолів</value>
+  </data>
+  <data name="ComboWinText" xml:space="preserve">
+    <value>5 перемог підряд</value>
+  </data>
+  <data name="DbCopiedMessage" xml:space="preserve">
+    <value>Базу успішно скопійовано в файл</value>
+  </data>
+  <data name="DbCopyErrorMessage" xml:space="preserve">
+    <value>Помилка при копіюванні БД в файл:</value>
+  </data>
+  <data name="DonCheckHeader" xml:space="preserve">
+    <value>ЗВІРКА ДОНА</value>
+  </data>
+  <data name="EpicFwText" xml:space="preserve">
+    <value>Переможна серія</value>
+  </data>
+  <data name="EpicWinText" xml:space="preserve">
+    <value>10 перемог підряд</value>
+  </data>
+  <data name="ExportComplete" xml:space="preserve">
+    <value>Експорт завершено</value>
+  </data>
+  <data name="FileSaved" xml:space="preserve">
+    <value>Файл було збережено</value>
+  </data>
+  <data name="SelectWinnerHeader" xml:space="preserve">
+    <value>ВИБЕРІТЬ КОМАНДУ-ПЕРЕМОЖЦЯ</value>
+  </data>
+  <data name="SheriffCheckHeader" xml:space="preserve">
+    <value>ЗВІРКА ШЕРИФА</value>
+  </data>
+  <data name="Spring" xml:space="preserve">
+    <value>Весняна</value>
+  </data>
+  <data name="Summer" xml:space="preserve">
+    <value>Літня</value>
+  </data>
+  <data name="Winter" xml:space="preserve">
+    <value>Зимова</value>
+  </data>
+  <data name="MemberTooltip" xml:space="preserve">
+    <value>Учасник клубу</value>
+  </data>
+  <data name="ApplyRatioLabel" xml:space="preserve">
+    <value>Застосовувати коефіцієнт для рейтингу ФИИМ</value>
+  </data>
+</root>

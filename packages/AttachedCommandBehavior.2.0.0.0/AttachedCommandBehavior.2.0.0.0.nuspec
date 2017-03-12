@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>AttachedCommandBehavior</id>
+    <version>2.0.0.0</version>
+    <title>AttachedCommandBehavior</title>
+    <authors>marlongrech</authors>
+    <owners>marlongrech</owners>
+    <projectUrl>http://marlongrech.wordpress.com/2008/12/13/attachedcommandbehavior-v2-aka-acb/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Description</description>
+    <copyright>Copyright ©  2008</copyright>
+  </metadata>
+</package>

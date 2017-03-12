@@ -1,0 +1,2013 @@
+﻿<Controls:MetroWindow x:Class="WpfApplication1.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:toolkit="clr-namespace:System.Windows.Controls;assembly=System.Windows.Controls.Input.Toolkit"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+        xmlns:Converters="http://metro.mahapps.com/winfx/xaml/shared"
+        xmlns:vsm ="clr-namespace:System.Windows;assembly=PresentationFramework"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:behaviors="clr-namespace:WpfApplication1.Common.Behaviors"
+        Title="Salute Protocol" Name="W" Icon="icon.png" WindowStartupLocation="CenterScreen"
+        xmlns:res="clr-namespace:WpfApplication1.Properties"
+        Top="{Binding Path=MainWindowTop, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+        Left="{Binding Path=MainWindowLeft, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"
+        Width="{Binding Path=MainWindowWidth, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, FallbackValue=530}"
+        Height="{Binding Path=MainWindowHeight, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged, FallbackValue=720}"
+        GlowBrush="{DynamicResource AccentColorBrush}" EnableDWMDropShadow="True"
+        WindowState="{Binding Path=CurrentWindowState, Mode=TwoWay}">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding ApplicationClose}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    
+    <Window.Resources>
+
+        <Style x:Key="MetroExpander"
+           TargetType="{x:Type Expander}">
+            <Setter Property="Margin"
+                Value="5" />
+            <Setter Property="Padding"
+                Value="5" />
+            <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
+            <Setter Property="Background"
+                Value="{DynamicResource AccentColorBrush}" />
+            <Setter Property="BorderBrush"
+                Value="{DynamicResource AccentColorBrush}" />
+            <Setter Property="Controls:ControlsHelper.HeaderFontSize"
+                Value="{DynamicResource ContentFontSize}" />
+            <Setter Property="Controls:GroupBoxHelper.HeaderForeground"
+                Value="{x:Null}" />
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <ContentPresenter Content="{Binding RelativeSource={RelativeSource AncestorType={x:Type Expander}},
+                                              Path=Header,
+                                              Mode=OneWay,
+                                              Converter={StaticResource ToUpperConverter}}">
+                            <TextElement.Foreground>
+                                <MultiBinding Converter="{x:Static Converters:BackgroundToForegroundConverter.Instance}">
+                                    <Binding Mode="OneWay"
+                                         Path="Background"
+                                         RelativeSource="{RelativeSource FindAncestor,
+                                                                         AncestorType={x:Type Expander}}" />
+                                    <Binding Mode="OneWay"
+                                         Path="(Controls:GroupBoxHelper.HeaderForeground)"
+                                         RelativeSource="{RelativeSource FindAncestor,
+                                                                         AncestorType={x:Type Expander}}" />
+                                </MultiBinding>
+                            </TextElement.Foreground>
+                        </ContentPresenter>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Expander}">
+                        <Grid>
+                            <vsm:VisualStateManager.VisualStateGroups>
+                                <vsm:VisualStateGroup x:Name="CommonStates">
+                                    <vsm:VisualState x:Name="Normal" />
+                                    <vsm:VisualState x:Name="MouseOver" />
+                                    <vsm:VisualState x:Name="Disabled">
+                                        <Storyboard>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity"
+                                                                       Storyboard.TargetName="DisabledVisualElement">
+                                                <SplineDoubleKeyFrame KeyTime="0"
+                                                                  Value="0.7" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                                       Storyboard.TargetName="ExpanderRoot">
+                                                <EasingDoubleKeyFrame KeyTime="0"
+                                                                  Value="0.3" />
+                                            </DoubleAnimationUsingKeyFrames>
+                                        </Storyboard>
+                                    </vsm:VisualState>
+                                </vsm:VisualStateGroup>
+                            </vsm:VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="DisabledVisualElement"
+                                   Fill="{DynamicResource ControlsDisabledBrush}"
+                                   IsHitTestVisible="false"
+                                   Opacity="0" />
+                            <DockPanel x:Name="ExpanderRoot">
+                                <Border x:Name="HeaderSite" Width="100"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1"
+                                    DockPanel.Dock="Top">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                        <ContentPresenter Margin="5,5,5,0"
+                                                      Content="{TemplateBinding Header}"
+                                                      ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                                      ContentTemplateSelector="{TemplateBinding HeaderTemplateSelector}"
+                                                      RecognizesAccessKey="True"
+                                                      TextElement.FontSize="10"
+                                                      TextElement.FontStretch="{TemplateBinding Controls:ControlsHelper.HeaderFontStretch}"
+                                                      TextElement.FontWeight="{TemplateBinding Controls:ControlsHelper.HeaderFontWeight}" />
+                                        <ToggleButton x:Name="ToggleSite"
+                                                  Margin="0,0,0,0"
+                                                  HorizontalContentAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                                  VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                                  Background="Transparent"
+                                                  BorderBrush="Transparent"
+                                                  DockPanel.Dock="Left"
+                                                  FocusVisualStyle="{x:Null}"
+                                                  IsChecked="{Binding IsExpanded,
+                                                                  Mode=TwoWay,
+                                                                  RelativeSource={RelativeSource TemplatedParent}}"
+                                                  Style="{StaticResource ExpanderDownHeaderStyle}" />
+                                    </StackPanel>
+                                </Border>
+                                <Border x:Name="ExpandSite"
+                                    HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Background="Transparent"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="1,0,1,1"
+                                    DockPanel.Dock="Bottom"
+                                    Focusable="false"
+                                    Opacity="0"
+                                    Visibility="Collapsed">
+                                    <ContentPresenter Margin="{TemplateBinding Padding}"
+                                                  Content="{TemplateBinding Content}"
+                                                  ContentTemplate="{TemplateBinding ContentTemplate}"
+                                                  Cursor="{TemplateBinding Cursor}" />
+                                </Border>
+                            </DockPanel>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsExpanded"
+                                 Value="true">
+                                <Setter TargetName="ExpandSite"
+                                    Property="Visibility"
+                                    Value="Visible" />
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.25"
+                                                         Storyboard.TargetName="ExpandSite"
+                                                         Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                         To="1" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0:0:0.25"
+                                                         Storyboard.TargetName="ExpandSite"
+                                                         Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                         To="0" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                            <Trigger Property="ExpandDirection"
+                                 Value="Right">
+                                <Setter TargetName="ExpandSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Right" />
+                                <Setter TargetName="ExpandSite"
+                                    Property="BorderThickness"
+                                    Value="0,1,1,1" />
+                                <Setter TargetName="HeaderSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Left" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="Style"
+                                    Value="{StaticResource ExpanderRightHeaderStyle}" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Top" />
+                            </Trigger>
+                            <Trigger Property="ExpandDirection"
+                                 Value="Up">
+                                <Setter TargetName="ExpandSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Top" />
+                                <Setter TargetName="ExpandSite"
+                                    Property="BorderThickness"
+                                    Value="1,1,1,0" />
+                                <Setter TargetName="HeaderSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Bottom" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="Style"
+                                    Value="{StaticResource ExpanderUpHeaderStyle}" />
+                            </Trigger>
+                            <Trigger Property="ExpandDirection"
+                                 Value="Left">
+                                <Setter TargetName="ExpandSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Left" />
+                                <Setter TargetName="ExpandSite"
+                                    Property="BorderThickness"
+                                    Value="1,1,0,1" />
+                                <Setter TargetName="HeaderSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Right" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="Style"
+                                    Value="{StaticResource ExpanderLeftHeaderStyle}" />
+                                <Setter TargetName="ToggleSite"
+                                    Property="DockPanel.Dock"
+                                    Value="Top" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled"
+                                 Value="false">
+                                <Setter Property="Foreground"
+                                    Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <ControlTemplate x:Key="CustomValidationTemplate">
+            <AdornedElementPlaceholder x:Name="placeholder">
+                <Grid SnapsToDevicePixels="True">
+                    <Rectangle StrokeThickness="0"
+                           x:Name="PopupTargetElement"
+                           DataContext="{Binding ElementName=placeholder}"
+                           Margin="-5,0,-5,0" />
+                    <Border x:Name="ValidationErrorElement"
+                        DataContext="{Binding ElementName=placeholder}"
+                        BorderBrush="{DynamicResource ControlsValidationBrush}"
+                        BorderThickness="1">
+
+                        <Grid Background="Transparent"
+                          HorizontalAlignment="Right"
+                          Height="12"
+                          Margin="1,-4,-4,0"
+                          VerticalAlignment="Top"
+                          Width="12">
+                            <Path Data="M 1,0 L6,0 A 2,2 90 0 1 8,2 L8,7 z"
+                              Fill="{DynamicResource ValidationBrush5}"
+                              Margin="1,3,0,0" />
+                            <Path Data="M 0,0 L2,0 L 8,6 L8,8"
+                              Fill="{DynamicResource WhiteColorBrush}"
+                              Margin="1,3,0,0" />
+                        </Grid>
+                    </Border>
+                    <Controls:CustomValidationPopup x:Name="ValidationPopup"
+                                                AllowsTransparency="True"
+                                                HorizontalAlignment="Right"
+                                                HorizontalOffset="0"
+                                                VerticalOffset="0"
+                                                PopupAnimation="Fade"
+                                                Placement="Right"
+                                                PlacementTarget="{Binding ElementName=PopupTargetElement, Mode=OneWay}"
+                                                IsOpen="True"
+                                                StaysOpen="True">
+                        <Grid x:Name="Root"
+                          Margin="4">
+                            <Grid.Resources>
+                                <Style TargetType="Border">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding ElementName=Root, Path=IsMouseOver, Mode=OneWay}"
+                                                 Value="True">
+                                            <DataTrigger.EnterActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     To="0.15"
+                                                                     Duration="0:0:0.1" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.EnterActions>
+                                            <DataTrigger.ExitActions>
+                                                <BeginStoryboard>
+                                                    <Storyboard>
+                                                        <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     To="1"
+                                                                     Duration="0:0:0.1" />
+                                                    </Storyboard>
+                                                </BeginStoryboard>
+                                            </DataTrigger.ExitActions>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Resources>
+                            <Border Background="{DynamicResource ValidationBrush1}"
+                                CornerRadius="5"
+                                Margin="4,4,-4,-4" />
+                            <Border Background="{DynamicResource ValidationBrush2}"
+                                CornerRadius="4"
+                                Margin="3,3,-3,-3" />
+                            <Border Background="{DynamicResource ValidationBrush3}"
+                                CornerRadius="3"
+                                Margin="2,2,-2,-2" />
+                            <Border Background="{DynamicResource ValidationBrush4}"
+                                CornerRadius="2"
+                                Margin="1,1,-1,-1" />
+                            <Border Background="{DynamicResource ValidationBrush5}"
+                                CornerRadius="2">
+                                <Border.Resources>
+                                    <DataTemplate DataType="{x:Type ValidationError}">
+                                        <TextBlock Foreground="{DynamicResource ValidationTextBrush}"
+                                               MaxWidth="250"
+                                               Margin="8,4,8,4"
+                                               TextWrapping="Wrap"
+                                               Text="Помилка вводу"
+                                               UseLayoutRounding="False" />
+                                    </DataTemplate>
+                                </Border.Resources>
+                                <ContentPresenter Content="{Binding CurrentItem}" />
+                            </Border>
+                        </Grid>
+                    </Controls:CustomValidationPopup>
+                </Grid>
+            </AdornedElementPlaceholder>
+
+            <ControlTemplate.Triggers>
+                <MultiDataTrigger>
+                    <MultiDataTrigger.Conditions>
+                        <Condition Binding="{Binding ElementName=placeholder, Path=AdornedElement.IsKeyboardFocusWithin, Mode=OneWay}"
+                               Value="True">
+                        </Condition>
+                        <Condition Binding="{Binding ElementName=placeholder, Path=AdornedElement.(Validation.HasError), Mode=OneWay}"
+                               Value="True">
+                        </Condition>
+                    </MultiDataTrigger.Conditions>
+                    <Setter TargetName="ValidationPopup"
+                        Property="IsOpen"
+                        Value="True" />
+                </MultiDataTrigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <ControlTemplate TargetType="{x:Type ToggleButton}" 
+                         x:Key="ExpanderTemplate">
+            <Grid>
+                <vsm:VisualStateManager.VisualStateGroups>
+                    <vsm:VisualStateGroup x:Name="CommonStates">
+                        <vsm:VisualState x:Name="Normal"/>
+                        <vsm:VisualState x:Name="MouseOver">
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                 Storyboard.TargetName="MouseOverRectangle"
+                                                 To="0.4"
+                                                 Duration="0"/>
+                            </Storyboard>
+                        </vsm:VisualState>
+                        <vsm:VisualState x:Name="Pressed">
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                 Storyboard.TargetName="PressedRectangle"
+                                                 To="1"
+                                                 Duration="0"/>
+                            </Storyboard>
+                        </vsm:VisualState>
+                        <vsm:VisualState x:Name="Disabled">
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                 Storyboard.TargetName="Border"
+                                                 To="0.5"
+                                                 Duration="0"/>
+                            </Storyboard>
+                        </vsm:VisualState>
+                    </vsm:VisualStateGroup>
+                    <vsm:VisualStateGroup x:Name="FocusStates">
+                        <vsm:VisualState x:Name="Focused">
+                            <Storyboard>
+                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                 Storyboard.TargetName="FocusVisualWhite"
+                                                 To="1" Duration="0"/>
+                            </Storyboard>
+                        </vsm:VisualState>
+                        <vsm:VisualState x:Name="Unfocused"/>
+                        <vsm:VisualState x:Name="PointerFocused"/>
+                    </vsm:VisualStateGroup>
+                </vsm:VisualStateManager.VisualStateGroups>
+                <Border Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="1"
+                            Padding="0"
+                            Margin="-3">
+                    <Grid SnapsToDevicePixels="False">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="2.5*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Rectangle x:Name="MouseOverRectangle" Grid.ColumnSpan="2" Fill="{DynamicResource BlackBrush}"
+                                   Opacity="0"/>
+                        <Rectangle x:Name="PressedRectangle" Grid.ColumnSpan="2" Fill="White" Opacity="0"/>
+                        <Grid Grid.Column="1">
+                            <Grid.LayoutTransform>
+                                <TransformGroup>
+                                    <TransformGroup.Children>
+                                        <TransformCollection>
+                                            <RotateTransform Angle="-90" />
+                                        </TransformCollection>
+                                    </TransformGroup.Children>
+                                </TransformGroup>
+                            </Grid.LayoutTransform>
+                            <Ellipse x:Name="Circle"
+                                         Width="19"
+                                         Height="19"
+                                         HorizontalAlignment="Center"
+                                         VerticalAlignment="Center"
+                                         Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Expander}}, Path=Background, Converter={x:Static Converters:BackgroundToForegroundConverter.Instance}}" />
+                            <Path x:Name="Arrow"
+                                      HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"
+                                      Data="M 1,1.5 L 4.5,5 L 8,1.5"
+                                      SnapsToDevicePixels="false"
+                                      Stroke="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Expander}}, Path=Background, Converter={x:Static Converters:BackgroundToForegroundConverter.Instance}}"
+                                      StrokeThickness="2" />
+                        </Grid>
+                        <ContentPresenter Grid.Column="0" x:Name="ContentPresenter"
+                                          TextBlock.Foreground="{TemplateBinding Foreground}"
+                                          TextBlock.FontWeight="SemiBold"
+                                          TextBlock.TextAlignment="Center"
+                                          Content="{TemplateBinding Content}"
+                                          ContentTemplate="{TemplateBinding ContentTemplate}"
+                                          Margin="5,1,0,0"
+                                          VerticalAlignment="Center"
+                                          RecognizesAccessKey="True" SnapsToDevicePixels="True" />
+                    </Grid>
+                </Border>
+                <Rectangle x:Name="FocusVisualWhite" IsHitTestVisible="False" Stroke="Black" Margin="-4"
+                           StrokeEndLineCap="Square" StrokeDashArray="1,1" Opacity="0" StrokeDashOffset="1.5"/>
+                <Rectangle x:Name="FocusVisualBlack" IsHitTestVisible="False" Stroke="Black" Margin="-4"
+                           StrokeEndLineCap="Square" StrokeDashArray="1,1" Opacity="0" StrokeDashOffset="0.5"/>
+            </Grid>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsChecked"
+                                 Value="true">
+                    <Setter TargetName="Arrow"
+                                    Property="Data"
+                                    Value="M 1,4.5  L 4.5,1  L 8,4.5" />
+                </Trigger>
+                <Trigger Property="IsVisible"
+                                 Value="true">
+                    <Setter TargetName="Circle"
+                                    Property="Stroke"
+                                    Value="{DynamicResource AccentSelectedColorBrush}" />
+                    <Setter TargetName="Arrow"
+                                    Property="Stroke"
+                                    Value="{DynamicResource AccentSelectedColorBrush}" />
+                </Trigger>
+                <Trigger Property="IsPressed"
+                                 Value="True">
+                    <Setter TargetName="Circle"
+                                    Property="Stroke"
+                                    Value="{DynamicResource BlackColorBrush}" />
+                    <Setter TargetName="Circle"
+                                    Property="StrokeThickness"
+                                    Value="2" />
+                    <Setter TargetName="Arrow"
+                                    Property="Stroke"
+                                    Value="{DynamicResource BlackColorBrush}" />
+                    <Setter TargetName="ContentPresenter" Property="TextBlock.Foreground" Value="Black"/>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <Style TargetType="{x:Type Controls:ToggleSwitch}">
+            <Setter Property="IsTabStop"
+                Value="True" />
+            <Setter Property="SwitchForeground"
+                Value="{DynamicResource AccentColorBrush}" />
+            <Setter Property="HorizontalContentAlignment"
+                Value="Left" />
+            <Setter Property="VerticalContentAlignment"
+                Value="Center" />
+            <Setter Property="Foreground"
+                Value="{DynamicResource BlackBrush}" />
+            <Setter Property="FontFamily"
+                Value="Segoe UI Semibold" />
+            <Setter Property="FontSize"
+                Value="14.667" />
+            <Setter Property="HeaderTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding Mode=OneWay}"
+                               TextWrapping="Wrap"
+                               FontWeight="Normal"
+                               HorizontalAlignment="Left"
+                               VerticalAlignment="Top"
+                               Margin="0,0,0,5"
+                               Opacity="0.65"
+                               FontSize="16" />
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Controls:ToggleSwitch}">
+                        <Border BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="15"/>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"
+                                                  x:Name="firstCol" />
+                                    <ColumnDefinition Width="Auto"
+                                                  x:Name="secCol" />
+                                </Grid.ColumnDefinitions>
+                                <ContentControl x:Name="Header"
+                                            Grid.Row="0" Grid.ColumnSpan="2"
+                                            Content="{TemplateBinding Header}"
+                                            ContentTemplate="{TemplateBinding HeaderTemplate}"
+                                            IsTabStop="False" />
+                                <ContentControl x:Name="Content"
+                                            Grid.Row="0" Grid.ColumnSpan="2"
+                                            Content="{TemplateBinding Content}"
+                                            ContentTemplate="{TemplateBinding ContentTemplate}"
+                                            IsTabStop="False"
+                                            HorizontalAlignment="Center"
+                                            VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                            FontFamily="{TemplateBinding FontFamily}"
+                                            FontSize="{TemplateBinding FontSize}"/>
+                                <Controls:ToggleSwitchButton x:Name="Switch"
+                                                         Grid.Column="1"
+                                                         Grid.Row="1"
+                                                         Background="{TemplateBinding Background}"
+                                                         IsChecked="{Binding IsChecked, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                                         SwitchForeground="{TemplateBinding SwitchForeground}"
+                                                         VerticalAlignment="Center" />
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <DataTrigger Binding="{Binding RelativeSource={RelativeSource Self}, Path=Header}"
+                                     Value="{x:Null}">
+                                <Setter TargetName="Header"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                            </DataTrigger>
+                            <Trigger Property="ContentDirection"
+                                 Value="RightToLeft">
+                                <Setter Property="HorizontalContentAlignment"
+                                    Value="Right" />
+                                <Setter TargetName="firstCol"
+                                    Property="Width"
+                                    Value="Auto" />
+                                <Setter TargetName="secCol"
+                                    Property="Width"
+                                    Value="*" />
+                                <Setter TargetName="Content"
+                                    Property="Grid.Column"
+                                    Value="1" />
+                                <Setter TargetName="Switch"
+                                    Property="Grid.Column"
+                                    Value="0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="VoteButtons" TargetType="Button">
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Width" Value="40"/>
+            <Setter Property="Height" Value="20"/>
+            <Setter Property="CommandParameter" Value="{Binding}"/>
+            <Setter Property="Margin" Value="0,0,5,0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Content" Value="{Binding}"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <vsm:VisualStateManager.VisualStateGroups>
+                                <vsm:VisualStateGroup x:Name="CommonStates">
+                                    <vsm:VisualState x:Name="Normal"/>
+                                    <vsm:VisualState x:Name="MouseOver">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                 Storyboard.TargetName="MouseOverRectangle"
+                                                 To="0.4"
+                                                 Duration="0"/>
+                                        </Storyboard>
+                                    </vsm:VisualState>
+                                    <vsm:VisualState x:Name="Pressed">
+                                        <Storyboard>
+                                            <DoubleAnimation Storyboard.TargetProperty="(UIElement.Opacity)"
+                                                 Storyboard.TargetName="PressedRectangle"
+                                                 To="1"
+                                                 Duration="0"/>
+                                        </Storyboard>
+                                    </vsm:VisualState>
+                                </vsm:VisualStateGroup>
+                            </vsm:VisualStateManager.VisualStateGroups>
+                            <Rectangle x:Name="MouseOverRectangle" Grid.ColumnSpan="2" Fill="{DynamicResource BlackBrush}"
+                                   Opacity="0"/>
+                            <Rectangle x:Name="PressedRectangle" Grid.ColumnSpan="2" Fill="White" Opacity="0"/>
+                            <Border x:Name="Border" Background="{DynamicResource AccentColorBrush2}">
+                                <ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ButtonWindowClose" TargetType="{x:Type Button}">
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"/>
+                            <Path x:Name="CloseWindow" HorizontalAlignment="Right" ToolTip="CloseWindow" Width="14" Height="13" Stretch="Fill" Fill="{DynamicResource ProgressBrush}" Margin="0,0,0,0" VerticalAlignment="Center" Data="F1 M 26.9166,22.1667L 37.9999,33.25L 49.0832,22.1668L 53.8332,26.9168L 42.7499,38L 53.8332,49.0834L 49.0833,53.8334L 37.9999,42.75L 26.9166,53.8334L 22.1666,49.0833L 33.25,38L 22.1667,26.9167L 26.9166,22.1667 Z " />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Grid.Column" Value="0"/>
+        </Style>
+        
+        <Style x:Key="BorderStyle" TargetType="Border">
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="BorderThickness" Value="1,1,0,1"/>
+            <Setter Property="BorderBrush" Value="LightGray"/>
+            <Setter Property="Margin" Value="0,0,0,-1"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalAlignment" Value="Right"/>
+            <Setter Property="Width" Value="25"/>
+        </Style>
+
+        <Style x:Key="ButtonCheckMark" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Grid>
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"/>
+                            <Path x:Name="CloseWindow" HorizontalAlignment="Right" ToolTip="CloseWindow" Width="14" Height="13" Stretch="Fill" Fill="{DynamicResource ProgressBrush}" Margin="0,0,5,0" Data="M103.78572,598.96112 L105.09846,597.5661 L107.00806,600.16229 C107.00806,600.16229 109.91004,592.74463 109.91004,592.74463 C109.91004,592.74463 111.74678,593.79761 111.74678,593.79761 C111.74678,593.79761 107.88566,602.75848 107.88566,602.75848 L106.60118,602.75848 z" />
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="Grid.Column" Value="1"/>
+        </Style>
+
+        <Style x:Key="RefreshButton" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <ContentPresenter x:Name="MyContentPresenter" Content="{TemplateBinding Content}"/>
+                            <Path Name="processing" Stretch="Fill" Fill="{DynamicResource ProgressBrush}" Data="M 16.077,29C 12.5633,29 9.37332,27.6224 7.02371,25.3809L 7.02371,32L 3.00005,28L 3.00005,18L 12.0533,18L 16.077,22L 9.32895,22C 10.9867,23.8412 13.3957,25 16.0769,25C 20.3855,25 23.991,22.008 24.9058,18L 29.0001,18C 28.0323,24.2302 22.615,29 16.077,29 Z M 15.9231,3.00001C 19.4368,3.00001 22.6268,4.37761 24.9764,6.61915L 24.9764,5.72205e-006L 29,4L 29,14L 19.9468,14L 15.9231,10L 22.6711,10C 21.0134,8.15875 18.6044,7.00001 15.9231,7.00001C 11.6146,7.00001 8.00909,9.99203 7.09425,14L 3.00005,14C 3.96775,7.76982 9.38513,3.00001 15.9231,3.00001 Z " UseLayoutRounding="False" Width="14" Height="17"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DigitsInput" TargetType="{x:Type TextBox}" BasedOn="{StaticResource MetroTextBox}">
+            <Setter Property="Width" Value="45"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="0,0,0,1"/>
+            <Setter Property="Validation.ErrorTemplate" Value="{StaticResource CustomValidationTemplate}"/>
+        </Style>
+
+        <Style x:Key="NumbersBlock" TargetType="Label">
+            <Setter Property="Grid.Column" Value="1"/>
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="{DynamicResource GrayBrush1}"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+        </Style>
+
+        <Style x:Key="ReflectStyle" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
+            <Setter Property="Grid.Column" Value="5"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="BorderThickness" Value="1,1,1,0"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="SnapsToDevicePixels" Value="False"/>
+            <Setter Property="HorizontalAlignment" Value="Stretch"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        </Style>
+
+        <Style x:Key="ResultStyle" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
+            <Setter Property="Grid.Column" Value="6"/>
+            <Setter Property="BorderThickness" Value="0,1,1,0"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="IsReadOnly" Value="False"/>
+        </Style>
+
+        <Style x:Key="TitleLabels" TargetType="Label">
+            <Setter Property="Grid.Row" Value="0"/>
+            <Setter Property="FontSize" Value="9"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+        </Style>
+
+        <Style x:Key="RightMenuNumeric" TargetType="Controls:NumericUpDown">
+            <Setter Property="BorderThickness"
+                Value="1" />
+            <Setter Property="SnapsToDevicePixels"
+                Value="true" />
+            <Setter Property="Foreground"
+                Value="{DynamicResource TextBrush}" />
+            <Setter Property="BorderBrush"
+                Value="{DynamicResource TextBoxBorderBrush}" />
+            <Setter Property="Controls:ControlsHelper.FocusBorderBrush"
+                Value="{DynamicResource TextBoxFocusBorderBrush}" />
+            <Setter Property="Controls:ControlsHelper.MouseOverBorderBrush"
+                Value="{DynamicResource TextBoxMouseOverBorderBrush}" />
+            <Setter Property="VerticalAlignment"
+                Value="Center" />
+            <Setter Property="FontFamily"
+                Value="{DynamicResource ContentFontFamily}" />
+            <Setter Property="FontSize"
+                Value="{DynamicResource ContentFontSize}" />
+            <Setter Property="Controls:TextBoxHelper.IsMonitoring"
+                Value="True" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+            <Setter Property="MinHeight"
+                Value="15" />
+            <Setter Property="MinWidth"
+                Value="20" />
+            <Setter Property="Validation.ErrorTemplate"
+                Value="{DynamicResource ValidationErrorTemplate}" />
+            <Setter Property="Focusable"
+                Value="False" />
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Controls:NumericUpDown}">
+                        <Grid Height="{TemplateBinding Height}"
+                          MinHeight="{TemplateBinding MinHeight}"
+                          MaxHeight="{TemplateBinding MaxHeight}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                          Background="{TemplateBinding Background}">
+                            <Border x:Name="Base"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1.5*" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox x:Name="PART_TextBox"
+                                     Grid.Column="0"
+                                     MinWidth="10"
+                                     MinHeight="{TemplateBinding MinHeight}"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Left"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                     BorderThickness="0"
+                                     Background="{x:Null}"
+                                     Focusable="True"
+                                     HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                     VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     FontFamily="{TemplateBinding FontFamily}"
+                                     FontSize="{TemplateBinding FontSize}"
+                                     Controls:TextBoxHelper.ClearTextButton="{TemplateBinding Controls:TextBoxHelper.ClearTextButton}"
+                                     Controls:TextBoxHelper.Watermark="{TemplateBinding Controls:TextBoxHelper.Watermark}" />
+                                <Grid Grid.Column="1" VerticalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition x:Name="PART_NumericUpColumn" Height="10"/>
+                                        <RowDefinition x:Name="PART_NumericDownColumn" Height="5"/>
+                                    </Grid.RowDefinitions>
+                                    <RepeatButton x:Name="PART_NumericUp"
+                                          Grid.Row="0"
+                                          Margin="0,2,0,0"
+                                          Delay="{TemplateBinding Delay}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          Style="{DynamicResource ChromelessButtonStyle}"
+                                          VerticalContentAlignment="Bottom"
+                                          VerticalAlignment="Center"
+                                          IsTabStop="False">
+                                        <Path x:Name="PolygonUp"
+                                      Width="7"
+                                      Height="7"
+                                      Stretch="Fill"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Data="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z " />
+                                    </RepeatButton>
+                                    <RepeatButton x:Name="PART_NumericDown"
+                                          Grid.Row="1"
+                                          Margin="0"
+                                          VerticalContentAlignment="Top"
+                                          Delay="{TemplateBinding Delay}"
+                                          Style="{DynamicResource ChromelessButtonStyle}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsTabStop="False"
+                                          VerticalAlignment="Center">
+                                        <Path x:Name="PolygonDown"
+                                      Width="7"
+                                      Height="1"
+                                      Stretch="Fill"
+                                      Fill="{TemplateBinding Foreground}"
+                                      Data="F1 M 19,38L 57,38L 57,44L 19,44L 19,38 Z " />
+                                    </RepeatButton>
+                                </Grid>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsReadOnly"
+                                 Value="True">
+                                <Setter Property="InterceptArrowKeys"
+                                    Value="False" />
+                                <Setter Property="InterceptMouseWheel"
+                                    Value="False" />
+                                <Setter Property="InterceptManualEnter"
+                                    Value="False" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 SourceName="PART_NumericUp">
+                                <Setter TargetName="PART_NumericUp"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                <Setter TargetName="PolygonUp"
+                                    Property="Fill"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                 Value="True"
+                                 SourceName="PART_NumericUp">
+                                <Setter TargetName="PART_NumericUp"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                <Setter TargetName="PolygonUp"
+                                    Property="Fill"
+                                    Value="{DynamicResource WhiteBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 SourceName="PART_NumericDown">
+                                <Setter TargetName="PART_NumericDown"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                <Setter TargetName="PolygonDown"
+                                    Property="Fill"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                 Value="True"
+                                 SourceName="PART_NumericDown">
+                                <Setter TargetName="PART_NumericDown"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                <Setter TargetName="PolygonDown"
+                                    Property="Fill"
+                                    Value="{DynamicResource WhiteBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                 Value="true">
+                                <Setter TargetName="Base"
+                                    Property="BorderBrush"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.MouseOverBorderBrush)}" />
+                            </Trigger>
+                            <Trigger Property="IsFocused"
+                                 Value="true"
+                                 SourceName="PART_TextBox">
+                                <Setter TargetName="Base"
+                                    Property="BorderBrush"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.FocusBorderBrush)}" />
+                            </Trigger>
+
+                            <Trigger Property="HideUpDownButtons"
+                                 Value="True">
+                                <Setter TargetName="PART_NumericUp"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                                <Setter TargetName="PART_NumericDown"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                                <Setter TargetName="PART_NumericUpColumn"
+                                    Property="Height"
+                                    Value="0" />
+                                <Setter TargetName="PART_NumericDownColumn"
+                                    Property="Height"
+                                    Value="0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MetroNumericStyle" TargetType="Controls:NumericUpDown">
+            <Setter Property="Grid.Column" Value="4"/>
+            <Setter Property="Minimum" Value="0"/>
+            <Setter Property="Maximum" Value="4"/>
+            <Setter Property="BorderThickness" Value="1,1,0,0" />
+            <Setter Property="SnapsToDevicePixels" Value="true" />
+            <Setter Property="Foreground" Value="{DynamicResource TextBrush}" />
+            <Setter Property="BorderBrush" Value="{DynamicResource TextBoxBorderBrush}" />
+            <Setter Property="Controls:ControlsHelper.FocusBorderBrush"
+                Value="{DynamicResource TextBoxFocusBorderBrush}" />
+            <Setter Property="Controls:ControlsHelper.MouseOverBorderBrush"
+                Value="{DynamicResource TextBoxMouseOverBorderBrush}" />
+            <Setter Property="VerticalAlignment"
+                Value="Stretch" />
+            <Setter Property="FontFamily"
+                Value="{DynamicResource ContentFontFamily}" />
+            <Setter Property="FontSize"
+                Value="{DynamicResource ContentFontSize}" />
+            <Setter Property="Controls:TextBoxHelper.IsMonitoring"
+                Value="True" />
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility"
+                Value="Auto" />
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility"
+                Value="Auto" />
+            <Setter Property="MinHeight"
+                Value="26" />
+            <Setter Property="MinWidth"
+                Value="62" />
+            <Setter Property="Background"
+                Value="{DynamicResource ControlBackgroundBrush}" />
+            <Setter Property="Validation.ErrorTemplate"
+                Value="{DynamicResource ValidationErrorTemplate}" />
+            <Setter Property="Focusable"
+                Value="False" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Controls:NumericUpDown}">
+                        <Grid Height="{TemplateBinding Height}"
+                          MinHeight="{TemplateBinding MinHeight}"
+                          MaxHeight="{TemplateBinding MaxHeight}"
+                          Margin="{TemplateBinding Padding}"
+                          VerticalAlignment="{TemplateBinding VerticalAlignment}"
+                          Background="{TemplateBinding Background}">
+                            <Border x:Name="Base"
+                                SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Background="{TemplateBinding Background}" />
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition />
+                                    <ColumnDefinition x:Name="PART_NumericUpColumn"
+                                                  Width="16" />
+                                    <ColumnDefinition x:Name="PART_NumericDownColumn"
+                                                  Width="16" />
+                                </Grid.ColumnDefinitions>
+
+                                <TextBox x:Name="PART_TextBox"
+                                     MinWidth="20"
+                                     MinHeight="{TemplateBinding MinHeight}"
+                                     Foreground="{TemplateBinding Foreground}"
+                                     HorizontalAlignment="Stretch"
+                                     HorizontalContentAlignment="Right"
+                                     VerticalContentAlignment="{TemplateBinding VerticalContentAlignment}"
+                                     SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"
+                                     BorderThickness="0"
+                                     Background="{x:Null}"
+                                     Focusable="True"
+                                     HorizontalScrollBarVisibility="{TemplateBinding ScrollViewer.HorizontalScrollBarVisibility}"
+                                     VerticalScrollBarVisibility="{TemplateBinding ScrollViewer.VerticalScrollBarVisibility}"
+                                     IsReadOnly="{TemplateBinding IsReadOnly}"
+                                     FontFamily="{TemplateBinding FontFamily}"
+                                     FontSize="{TemplateBinding FontSize}"
+                                     Controls:TextBoxHelper.ClearTextButton="{TemplateBinding Controls:TextBoxHelper.ClearTextButton}"
+                                     Controls:TextBoxHelper.Watermark="{TemplateBinding Controls:TextBoxHelper.Watermark}" />
+                                <RepeatButton x:Name="PART_NumericUp"
+                                          Grid.Column="1"
+                                          Margin="2,2,0,2"
+                                          Delay="{TemplateBinding Delay}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          Style="{DynamicResource ChromelessButtonStyle}"
+                                          IsTabStop="False">
+                                    <Path x:Name="PolygonUp"
+                                      Width="10"
+                                      Height="10"
+                                      Stretch="Fill"
+                                      Fill="{DynamicResource GrayBrush1}"
+                                      Data="F1 M 35,19L 41,19L 41,35L 57,35L 57,41L 41,41L 41,57L 35,57L 35,41L 19,41L 19,35L 35,35L 35,19 Z " />
+                                </RepeatButton>
+                                <RepeatButton x:Name="PART_NumericDown"
+                                          Grid.Column="2"
+                                          Margin="0,2,2,2"
+                                          VerticalContentAlignment="Center"
+                                          Delay="{TemplateBinding Delay}"
+                                          Style="{DynamicResource ChromelessButtonStyle}"
+                                          Foreground="{TemplateBinding Foreground}"
+                                          IsTabStop="False">
+                                    <Path x:Name="PolygonDown"
+                                      Width="10"
+                                      Height="2"
+                                      Stretch="Fill"
+                                      Fill="{DynamicResource GrayBrush1}"
+                                      Data="F1 M 19,38L 57,38L 57,44L 19,44L 19,38 Z " />
+                                </RepeatButton>
+                            </Grid>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsReadOnly"
+                                 Value="True">
+                                <Setter Property="InterceptArrowKeys"
+                                    Value="False" />
+                                <Setter Property="InterceptMouseWheel"
+                                    Value="False" />
+                                <Setter Property="InterceptManualEnter"
+                                    Value="False" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 SourceName="PART_NumericUp">
+                                <Setter TargetName="PART_NumericUp"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                <Setter TargetName="PolygonUp"
+                                    Property="Fill"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                 Value="True"
+                                 SourceName="PART_NumericUp">
+                                <Setter TargetName="PART_NumericUp"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                <Setter TargetName="PolygonUp"
+                                    Property="Fill"
+                                    Value="{DynamicResource WhiteBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                 Value="True"
+                                 SourceName="PART_NumericDown">
+                                <Setter TargetName="PART_NumericDown"
+                                    Property="Background"
+                                    Value="{DynamicResource GrayBrush8}" />
+                                <Setter TargetName="PolygonDown"
+                                    Property="Fill"
+                                    Value="{DynamicResource AccentColorBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsPressed"
+                                 Value="True"
+                                 SourceName="PART_NumericDown">
+                                <Setter TargetName="PART_NumericDown"
+                                    Property="Background"
+                                    Value="{DynamicResource BlackBrush}" />
+                                <Setter TargetName="PolygonDown"
+                                    Property="Fill"
+                                    Value="{DynamicResource WhiteBrush}" />
+                            </Trigger>
+                            <Trigger Property="IsMouseOver"
+                                 Value="true">
+                                <Setter TargetName="Base"
+                                    Property="BorderBrush"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.MouseOverBorderBrush)}" />
+                            </Trigger>
+                            <Trigger Property="IsFocused"
+                                 Value="true"
+                                 SourceName="PART_TextBox">
+                                <Setter TargetName="Base"
+                                    Property="BorderBrush"
+                                    Value="{Binding RelativeSource={RelativeSource TemplatedParent}, Path=(Controls:ControlsHelper.FocusBorderBrush)}" />
+                            </Trigger>
+
+                            <Trigger Property="HideUpDownButtons"
+                                 Value="True">
+                                <Setter TargetName="PART_NumericUp"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                                <Setter TargetName="PART_NumericDown"
+                                    Property="Visibility"
+                                    Value="Collapsed" />
+                                <Setter TargetName="PART_NumericUpColumn"
+                                    Property="Width"
+                                    Value="0" />
+                                <Setter TargetName="PART_NumericDownColumn"
+                                    Property="Width"
+                                    Value="0" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ComboBoxesStyle" TargetType="ComboBox" BasedOn="{StaticResource MetroComboBox}">
+            <Setter Property="Grid.Column" Value="3"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="Background" Value="{x:Null}"/>
+            <Setter Property="BorderThickness" Value="0,1,0,0"/>
+            <Setter Property="SnapsToDevicePixels" Value="False"/>
+            <Setter Property="Visibility" Value="{Binding Path=IsToggleChecked, Converter={StaticResource VisibilityConverter}}"/>
+        </Style>
+
+        <Style TargetType="{x:Type toolkit:AutoCompleteBox}"
+           x:Key="MetroAutoCompleteBox">
+            <Setter Property="FontFamily"
+                Value="{DynamicResource ContentFontFamily}" />
+            <Setter Property="FontSize"
+                Value="12" />
+            <Setter Property="BorderThickness"
+                Value="1,1,1,0" />
+            <Setter Property="MinHeight"
+                Value="26" />
+            <Setter Property="Grid.Column" Value="2"/>
+            <Setter Property="Foreground"
+                Value="{DynamicResource TextBrush}" />
+            <Setter Property="BorderBrush"
+                Value="{DynamicResource TextBoxBorderBrush}" />
+            <Setter Property="SnapsToDevicePixels" Value="True"/>
+            <Setter Property="VerticalAlignment" Value="Stretch"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="ItemsSource" Value="{Binding NicksAutoComplete, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Setter Property="IsTextCompletionEnabled" Value="True"/>
+        </Style>
+
+        <Style x:Key="DateTimeLabels" TargetType="Label">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Foreground" Value="White"/>
+        </Style>
+
+        <Style TargetType="CheckBox" x:Key="SheriffButton" BasedOn="{StaticResource MetroCheckBox}">
+            <Setter Property="FontSize" Value="10"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="IsChecked" Value="{Binding SheriffFirstNight, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+        </Style>
+
+        <Style x:Key="KilledQueue" TargetType="TextBox" BasedOn="{StaticResource MetroTextBox}">
+            <Setter Property="Width" Value="45"/>
+            <Setter Property="Height" Value="30"/>
+            <Setter Property="Margin" Value="5,0,0,0"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="HorizontalContentAlignment" Value="Center"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border Name="Border" BorderBrush="{DynamicResource TextBoxBorderBrush}" BorderThickness="0,0,0,1">
+                            <ScrollViewer Margin="0" x:Name="PART_ContentHost"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Border" Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush EndPoint="0,0" StartPoint="2,2" MappingMode="Absolute" SpreadMethod="Repeat">
+                                            <GradientStop Color="Black" Offset="0"/>
+                                            <GradientStop Color="Black" Offset="0.1"/>
+                                            <GradientStop Color="White" Offset="0.1"/>
+                                            <GradientStop Color="White" Offset="1"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+    </Window.Resources>
+    
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                <TextBlock Text="{x:Static res:Resources.Table}" VerticalAlignment="Center"/>
+                <Controls:NumericUpDown Maximum="3" Minimum="0" FontSize="10" BorderThickness="0" Foreground="White" Width="30"
+                                        Style="{StaticResource RightMenuNumeric}" behaviors:FocusExtension.IsFocused="{Binding Path=TempFocused}"
+                                        Value="{Binding Path=TableNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Focusable="True"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="10,0,10,0">
+                <TextBlock Text="{x:Static res:Resources.Game}" VerticalAlignment="Center"/>
+                <Controls:NumericUpDown Maximum="10" Minimum="0" FontSize="10" BorderThickness="0" Foreground="White" Width="40"
+                                        Style="{StaticResource RightMenuNumeric}"
+                                        Value="{Binding Path=GameNumber, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </StackPanel>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="1.2*"/>
+            <RowDefinition Height="3.4*"/>
+            <RowDefinition Height="1.5*"/>
+            <RowDefinition Height="0.6*"/>
+            <RowDefinition Height="0.4*"/>
+        </Grid.RowDefinitions>
+        <Canvas Panel.ZIndex="1" Grid.RowSpan="6" Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" >
+                <Controls:ProgressRing Height="50" Width="50" IsActive="{Binding Path=IsBusyIndicator, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                   Foreground="{DynamicResource AccentColorBrush}" />
+        </Canvas>
+        <Grid Grid.Row="0" HorizontalAlignment="Stretch" VerticalAlignment="Top">
+            <Menu Background="{DynamicResource AccentColorBrush2}" Foreground="White">
+                <MenuItem Header="{x:Static res:Resources.File}" Background="Transparent" FontWeight="SemiBold" FontSize="11">
+                    <MenuItem Header="{x:Static res:Resources.New}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding ClearApplication}"/>
+                    <MenuItem Header="{x:Static res:Resources.Open}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding LoadFromFile}"/>
+                    <MenuItem Header="{x:Static res:Resources.Save}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding SaveToFile}"/>
+                    <Separator/>
+                    <MenuItem Header="{x:Static res:Resources.Exit}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding ApplicationClose}"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static res:Resources.Edit}" Background="Transparent" FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center">
+                    <MenuItem Header="{x:Static res:Resources.Setting}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding ShowSettings}"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static res:Resources.Database}" Background="Transparent" FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center">
+                    <MenuItem Header="{x:Static res:Resources.OpenDb}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding OpenDb}"/>
+                    <MenuItem Header="{x:Static res:Resources.SaveDb}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding SaveToDb}"/>
+                    <MenuItem Header="{x:Static res:Resources.NewWeek}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding NewWeek}"/>
+                    <MenuItem Header="{x:Static res:Resources.BackupDb}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding BackupDb}"/>
+                </MenuItem>
+                <MenuItem Header="{x:Static res:Resources.Info}" Background="Transparent" FontSize="11" FontWeight="SemiBold" VerticalAlignment="Center">
+                    <MenuItem Header="{x:Static res:Resources.Graphs}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding ShowGraphs}"/>
+                    <MenuItem Header="{x:Static res:Resources.Statistics}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding ShowStatistics}"/>
+                    <MenuItem Header="{x:Static res:Resources.CreateInfographics}" Foreground="{DynamicResource GrayBrush1}" Command="{Binding CreateInfographics}"/>
+                </MenuItem>
+            </Menu>
+            <StackPanel Orientation="Horizontal" Grid.Row="0" HorizontalAlignment="Right" VerticalAlignment="Stretch">
+                <Label x:Name="DateLabel" Style="{StaticResource DateTimeLabels}" Content="{Binding Path=DateNow, Mode=OneTime, FallbackValue={x:Static res:Resources.Date}}" />
+                <Rectangle VerticalAlignment="Stretch" Width="1" Stroke="WhiteSmoke" Margin="5,5,5,5"/>
+                <Label x:Name="TimeLabel" Style="{StaticResource DateTimeLabels}" Content="{Binding Path=TimeNow, Mode=OneWay, FallbackValue={x:Static res:Resources.Time}}"
+                       Margin="0,0,5,0" />
+            </StackPanel>
+        </Grid>
+        <Label Content="{Binding Path=BrowserMode, UpdateSourceTrigger=PropertyChanged}" HorizontalAlignment="Left" Grid.Row="1" VerticalAlignment="Top"
+               FontSize="8" Margin="5,-5,0,0" Foreground="Red"/>
+        <Grid Grid.ColumnSpan="3" Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Controls:ToggleSwitch Margin="10,-15,0,15" FontSize="10" Foreground="{DynamicResource GrayBrush1}" VerticalAlignment="Center"
+                                   HorizontalAlignment="Left" OnLabel="{x:Static res:Resources.Night}" OffLabel="{x:Static res:Resources.Day}"
+                                   IsChecked="{Binding Path=IsToggleChecked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                
+            </Controls:ToggleSwitch>
+            <Button Style="{DynamicResource MetroAccentButton}" Command="{Binding Path=ShowSheriffCheck}" Width="60" Height="25" Margin="10 80 0 10"
+                    Content="{x:Static res:Resources.SheriffButton}" FontSize="8" Grid.ColumnSpan="2" Grid.Column="0" />
+            <Button Style="{DynamicResource MetroAccentButton}" Command="{Binding Path=ShowDonCheck}" Width="60" Height="25" Margin="70 80 0 10"
+                    Content="{x:Static res:Resources.DonButton}" FontSize="8" Grid.ColumnSpan="2" Grid.Column="0" />
+            <Image Source="/SaluteLogo.png" Grid.Column="1" Margin="-20 -10 -20 -20" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="2" VerticalAlignment="Center" Margin="0,0,10,5" >
+                <ToggleButton Template="{StaticResource ExpanderTemplate}" Content="{x:Static res:Resources.TimerButton}" Width="90"
+                          HorizontalAlignment="Right" IsChecked="{Binding Path=IsTimerVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Background="{DynamicResource AccentColorBrush2}" BorderBrush="{DynamicResource AccentSelectedColorBrush}"
+                          Command="{Binding Path=TimerClear}" Foreground="{DynamicResource AccentSelectedColorBrush}"/>
+                <ToggleButton Template="{StaticResource ExpanderTemplate}" Content="{x:Static res:Resources.PlayerButton}" Width="90" Margin="0 10 0 0"
+                          HorizontalAlignment="Right" IsChecked="{Binding Path=IsPlayerVisible, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                          Background="{DynamicResource AccentColorBrush2}" BorderBrush="{DynamicResource AccentSelectedColorBrush}"
+                          Command="{Binding Path=PlayerOpen}" Foreground="{DynamicResource AccentSelectedColorBrush}"/>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="2" Margin="0,0,10,0" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="25*" />
+                <ColumnDefinition Width="27*"/>
+                <ColumnDefinition Width="172*"/>
+                <ColumnDefinition Width="75*"/>
+                <ColumnDefinition Width="57*"/>
+                <ColumnDefinition Width="82*"/>
+                <ColumnDefinition Width="32*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="22"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+                <RowDefinition Height="27"/>
+            </Grid.RowDefinitions>
+            <Border Grid.Row="1" Style="{StaticResource BorderStyle}">
+                <Label Content="1" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="2" Style="{StaticResource BorderStyle}">
+                <Label Content="2" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="3" Style="{StaticResource BorderStyle}">
+                <Label Content="3" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="4" Style="{StaticResource BorderStyle}">
+                <Label Content="4" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="5" Style="{StaticResource BorderStyle}">
+                <Label Content="5" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="6" Style="{StaticResource BorderStyle}">
+                <Label Content="6" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="7" Style="{StaticResource BorderStyle}">
+                <Label Content="7" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="8" Style="{StaticResource BorderStyle}">
+                <Label Content="8" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="9" Style="{StaticResource BorderStyle}">
+                <Label Content="9" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Border Grid.Row="10" Style="{StaticResource BorderStyle}" Margin="0">
+                <Label Content="10" Style="{StaticResource NumbersBlock}"/>
+            </Border>
+            <Label Grid.Column="1" Style="{StaticResource TitleLabels}" Content="№" Margin="5,0,0,0"/>
+            <Label Grid.Column="2" Style="{StaticResource TitleLabels}" Content="{x:Static res:Resources.NickHeader}"/>
+            <Label Grid.Column="3" Style="{StaticResource TitleLabels}" Content="{x:Static res:Resources.RoleHeader}"/>
+            <Label Grid.Column="4" Style="{StaticResource TitleLabels}" Content="{x:Static res:Resources.FoulsHeader}"/>
+            <Label Grid.Column="5" Style="{StaticResource TitleLabels}" Content="{x:Static res:Resources.BestHeader}"/>
+            <Label Grid.Column="6" Style="{StaticResource TitleLabels}" Content="{x:Static res:Resources.ResultHeader}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="0" Grid.Row="1" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[0].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="1" Grid.Row="2" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[1].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="2" Grid.Row="3" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[2].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="3" Grid.Row="4" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[3].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="4" Grid.Row="5" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[4].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="5" Grid.Row="6" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[5].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="6" Grid.Row="7" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[6].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="7" Grid.Row="8" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[7].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="8" Grid.Row="9" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[8].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button Command="{Binding Path=KillButtonClick}" CommandParameter="9" Grid.Row="10" Style="{StaticResource ButtonWindowClose}"
+                    Visibility="{Binding Path=Players[9].KillButtonVisibilityProperty, Converter={StaticResource VisibilityConverter}}"/>
+            <Button IsEnabled="{Binding Path=MiskillEnabled}" Command="{Binding Path=KillButtonClick}" CommandParameter="X"
+                    Style="{StaticResource ButtonWindowClose}" Grid.Column="1" Grid.Row="11" Margin="0,-2,5,0"/>
+            <Label Content="{x:Static res:Resources.Mishit}" Grid.Column="2" Grid.Row="11" FontSize="10" Foreground="{DynamicResource GrayBrush1}"/>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[0].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="Nick1" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="1"
+                                     Background="{Binding Path=Players[0].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick1, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[1].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     x:Name="Nick2" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="2"
+                                     Background="{Binding Path=Players[1].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick2, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[2].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="Nick3" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="3"
+                                     Background="{Binding Path=Players[2].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick3, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[3].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     x:Name="Nick4" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="4"
+                                     Background="{Binding Path=Players[3].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick4, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[4].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                     x:Name="Nick5" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="5"
+                                     Background="{Binding Path=Players[4].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick5, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[5].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="Nick6" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="6"
+                                     Background="{Binding Path=Players[5].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick6, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[6].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="Nick7" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="7"
+                                     Background="{Binding Path=Players[6].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick7, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[7].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="Nick8" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="8"
+                                     Background="{Binding Path=Players[7].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick8, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[8].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="Nick9" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="9"
+                                     Background="{Binding Path=Players[8].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick9, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <toolkit:AutoCompleteBox Text="{Binding Path=Players[9].Nick, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                     x:Name="Nick10" BorderThickness="1,1,1,1" Style="{StaticResource MetroAutoCompleteBox}" Grid.Row="10"
+                                     Background="{Binding Path=Players[9].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=DuplicateNicks}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="TextChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=CheckEmptyNick}" CommandParameter="{Binding ElementName=Nick10, Path=Text}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </toolkit:AutoCompleteBox>
+            <ComboBox x:Name="Role1" Text="{Binding Path=Players[0].Role}" IsDropDownOpen="{Binding Path=Players[0].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[0].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="1"
+                      Background="{Binding Path=Players[0].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[0].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[0]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role2" Text="{Binding Path=Players[1].Role}" IsDropDownOpen="{Binding Path=Players[1].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[1].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="2" 
+                      Background="{Binding Path=Players[1].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[1].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[1]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role3" Text="{Binding Path=Players[2].Role}" IsDropDownOpen="{Binding Path=Players[2].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[2].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="3" 
+                      Background="{Binding Path=Players[2].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[2].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[2]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role4" Text="{Binding Path=Players[3].Role}" IsDropDownOpen="{Binding Path=Players[3].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[3].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="4" 
+                      Background="{Binding Path=Players[3].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[3].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[3]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role5" Text="{Binding Path=Players[4].Role}" IsDropDownOpen="{Binding Path=Players[4].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[4].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="5" 
+                      Background="{Binding Path=Players[4].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[4].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[4]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role6" Text="{Binding Path=Players[5].Role}" IsDropDownOpen="{Binding Path=Players[5].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[5].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="6" 
+                      Background="{Binding Path=Players[5].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[5].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[5]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role7" Text="{Binding Path=Players[6].Role}" IsDropDownOpen="{Binding Path=Players[6].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[6].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="7" 
+                      Background="{Binding Path=Players[6].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[6].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[6]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role8" Text="{Binding Path=Players[7].Role}" IsDropDownOpen="{Binding Path=Players[7].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[7].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="8" 
+                      Background="{Binding Path=Players[7].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[7].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[7]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role9" Text="{Binding Path=Players[8].Role}" IsDropDownOpen="{Binding Path=Players[8].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[8].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="9" 
+                      Background="{Binding Path=Players[8].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[8].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[8]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Role10" Text="{Binding Path=Players[9].Role}" IsDropDownOpen="{Binding Path=Players[9].IsDropDownOpened, Mode=TwoWay}"
+                      ItemsSource="{Binding Path=Players[9].RolesAviailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Style="{StaticResource ComboBoxesStyle}" Grid.Row="10" 
+                      Background="{Binding Path=Players[9].Role, Converter={StaticResource RoleToColorConverter}}"
+                      Foreground="{Binding Path=Players[9].Role, Converter={StaticResource RoleToColorConverter}, ConverterParameter=Foreground}"
+                      BorderThickness="0,1,0,1">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesCheck}"/>
+                    </i:EventTrigger>
+                    <i:EventTrigger EventName="MouseDoubleClick">
+                        <i:InvokeCommandAction Command="{Binding Path=RolesClick}" CommandParameter="{Binding Players[9]}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <Button Style="{StaticResource RefreshButton}" Command="{Binding Path=RefreshAutoComplete}" Grid.Row="11" Grid.Column="2"
+                    HorizontalAlignment="Right" Margin="0,0,20,0"/>
+            <StackPanel Orientation="Horizontal" Grid.Row="11" Grid.Column="3" HorizontalAlignment="Center">
+                <Button Command="{Binding Path=FillRoles}" Style="{StaticResource ButtonCheckMark}" Margin="0,0,10,0"/>
+                <Button Command="{Binding Path=ClearRoles}" Style="{StaticResource ButtonWindowClose}"/>
+            </StackPanel>
+            <Controls:NumericUpDown Value="{Binding Path=Players[0].Foul}" Style="{StaticResource MetroNumericStyle}"
+                                Background="{Binding Path=Players[0].BackgroundColor}" Grid.Row="1">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="0"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[1].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[1].BackgroundColor}" Grid.Row="2">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="1"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[2].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[2].BackgroundColor}" Grid.Row="3">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="2"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[3].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[3].BackgroundColor}" Grid.Row="4">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="3"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[4].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[4].BackgroundColor}" Grid.Row="5">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="4"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[5].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[5].BackgroundColor}" Grid.Row="6">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="5"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[6].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[6].BackgroundColor}" Grid.Row="7">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="6"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[7].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[7].BackgroundColor}" Grid.Row="8">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="7"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[8].Foul}" Style="{StaticResource MetroNumericStyle}" 
+                                Background="{Binding Path=Players[8].BackgroundColor}" Grid.Row="9">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="8"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <Controls:NumericUpDown Value="{Binding Path=Players[9].Foul}" Style="{StaticResource MetroNumericStyle}"
+                                Background="{Binding Path=Players[9].BackgroundColor}" Grid.Row="10" BorderThickness="1,1,0,1">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="ValueChanged">
+                        <i:InvokeCommandAction Command="{Binding Path=FoulValueChanged}" CommandParameter="9"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Controls:NumericUpDown>
+            <ComboBox x:Name="Reflection1" Text="{Binding Path=Players[0].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[0].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[0].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection2" Text="{Binding Path=Players[1].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[1].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[1].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection3" Text="{Binding Path=Players[2].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[2].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="3"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[2].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection4" Text="{Binding Path=Players[3].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[3].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="4"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[3].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection5" Text="{Binding Path=Players[4].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[4].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="5"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[4].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection6" Text="{Binding Path=Players[5].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[5].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="6"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[5].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection7" Text="{Binding Path=Players[6].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[6].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="7"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[6].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection8" Text="{Binding Path=Players[7].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[7].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="8"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[7].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection9" Text="{Binding Path=Players[8].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[8].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="9"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[8].BackgroundColor}">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <ComboBox x:Name="Reflection10" Text="{Binding Path=Players[9].Reflection, Converter={StaticResource BestPlayerStringToIntCovnerter}}" 
+                      ItemsSource="{Binding Path=Players[9].BestPlayersAvailable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Grid.Row="10"
+                      Style="{StaticResource ReflectStyle}" Background="{Binding Path=Players[9].BackgroundColor}" BorderThickness="1,1,1,1">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="DropDownClosed">
+                        <i:InvokeCommandAction Command="{Binding Path=BestPlayersSet}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </ComboBox>
+            <TextBox x:Name="Result1" Text="{Binding Path=Players[0].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="1"
+                     Background="{Binding Path=Players[0].BackgroundColor}"/>
+            <TextBox x:Name="Result2" Text="{Binding Path=Players[1].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="2"
+                     Background="{Binding Path=Players[1].BackgroundColor}"/>
+            <TextBox x:Name="Result3" Text="{Binding Path=Players[2].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="3"
+                     Background="{Binding Path=Players[2].BackgroundColor}"/>
+            <TextBox x:Name="Result4" Text="{Binding Path=Players[3].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="4"
+                     Background="{Binding Path=Players[3].BackgroundColor}"/>
+            <TextBox x:Name="Result5" Text="{Binding Path=Players[4].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="5"
+                     Background="{Binding Path=Players[4].BackgroundColor}"/>
+            <TextBox x:Name="Result6" Text="{Binding Path=Players[5].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="6"
+                     Background="{Binding Path=Players[5].BackgroundColor}"/>
+            <TextBox x:Name="Result7" Text="{Binding Path=Players[6].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="7"
+                     Background="{Binding Path=Players[6].BackgroundColor}"/>
+            <TextBox x:Name="Result8" Text="{Binding Path=Players[7].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="8"
+                     Background="{Binding Path=Players[7].BackgroundColor}"/>
+            <TextBox x:Name="Result9" Text="{Binding Path=Players[8].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="9"
+                     Background="{Binding Path=Players[8].BackgroundColor}"/>
+            <TextBox x:Name="Result10" Text="{Binding Path=Players[9].Result}"
+                     Style="{StaticResource ResultStyle}" Grid.Row="10"
+                     Background="{Binding Path=Players[9].BackgroundColor}"
+                     BorderThickness="0,1,1,1"/>
+        </Grid>
+        <Grid Grid.Row="3" Margin="3.5,0,10,0" Grid.ColumnSpan="2" Grid.Column="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Border BorderBrush="{StaticResource TextBoxBorderBrush}" Grid.Column="0">
+                <StackPanel Orientation="Vertical" Margin="10,0,0,0">
+                    <Label HorizontalAlignment="Center" Content="{x:Static res:Resources.KillsLabel}"/>
+                    <TextBox x:Name="FirstNightKill" Text="{Binding Path=KilledAtNight[0], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource KilledQueue}" IsReadOnly="False" IsEnabled="{Binding KilledAtNightEnabled[0]}">
+                        <i:Interaction.Triggers>
+                            <i:EventTrigger EventName="TextChanged">
+                                <command:EventToCommand Command="{Binding Path=KillQueueChanged}" PassEventArgsToCommand="True"/>
+                            </i:EventTrigger>
+                        </i:Interaction.Triggers>
+                    </TextBox>
+                    <TextBox x:Name="SecondNightKill" Text="{Binding Path=KilledAtNight[1], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource KilledQueue}" IsReadOnly="False" IsEnabled="{Binding KilledAtNightEnabled[1]}">
+                    </TextBox>
+                    <TextBox x:Name="ThirdNightKill" Text="{Binding Path=KilledAtNight[2], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource KilledQueue}" IsReadOnly="False" IsEnabled="{Binding KilledAtNightEnabled[2]}">
+                    </TextBox>
+                </StackPanel>
+            </Border>
+            <Border BorderBrush="LightGray" BorderThickness="1" Grid.Column="1" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.4*"/>
+                        <RowDefinition Height="2.3*"/>
+                        <RowDefinition Height="2.2*"/>
+                        <RowDefinition Height="1.1*"/>
+                    </Grid.RowDefinitions>
+                    <Expander Header="{x:Static res:Resources.UgadaykaLabel}" HorizontalAlignment="Stretch" Style="{DynamicResource MetroExpander}"
+                              VerticalAlignment="Top" Grid.ColumnSpan="2" Height="70" ExpandDirection="Down"
+                              Grid.RowSpan="2" IsExpanded="{Binding Path=UgadaykaEnabled, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <TextBox x:Name="Ugadayka1"
+                                     Text="{Binding Path=UgadaykaContainer[0], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource DigitsInput}" BorderThickness="1,1,0,1">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding Path=OnlyDigitsUgadayka}" CommandParameter="0"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <TextBox x:Name="Ugadayka2"
+                                     Text="{Binding Path=UgadaykaContainer[1], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource DigitsInput}" BorderThickness="1,1,1,1">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding Path=OnlyDigitsUgadayka}" CommandParameter="1"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                            <TextBox x:Name="Ugadayka3"
+                                     Text="{Binding Path=UgadaykaContainer[2], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                 Style="{StaticResource DigitsInput}" BorderThickness="0,1,1,1">
+                                <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="TextChanged">
+                                        <i:InvokeCommandAction Command="{Binding Path=OnlyDigitsUgadayka}" CommandParameter="2"/>
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>
+                            </TextBox>
+                        </StackPanel>
+                    </Expander>
+                    <CheckBox Style="{StaticResource SheriffButton}" x:Name="FirstNightCheckBox" Grid.ColumnSpan="2" Grid.Row="2" Content="{x:Static res:Resources.SheriffFirstNightLabel}"
+                              VerticalAlignment="Top" Margin="0,3,0,0"/>
+                    <Label x:Name="BestPlayer" Grid.ColumnSpan="2" Grid.Row="3" FontSize="10"
+                           Content="{Binding Path=BestPlayerString, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                           HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                    <StackPanel Orientation="Horizontal" Grid.ColumnSpan="2" Grid.Column="0" Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom">
+                        <CheckBox x:Name="TechnicalBlack" IsEnabled="{Binding Path=TechBlackEnabled}"
+                                  IsChecked="{Binding Path=TechBlackWin,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Content="{x:Static res:Resources.TechBlackLabel}" FontSize="10" VerticalAlignment="Center"
+                                  Style="{DynamicResource MetroCheckBox}"/>
+                        <CheckBox x:Name="TechnicalRed" IsEnabled="{Binding Path=TechRedEnabled}"
+                                  IsChecked="{Binding Path=TechRedWin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                                  Content="{x:Static res:Resources.TechRedLabel}" FontSize="10" Margin="15,0,0,0" VerticalAlignment="Center"
+                                  Style="{DynamicResource MetroCheckBox}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <StackPanel Orientation="Vertical" Grid.Column="2">
+                <Label HorizontalAlignment="Center" Content="{x:Static res:Resources.BestChoiceLabel}"/>
+                <TextBox x:Name="BestChoice1" Text="{Binding Path=BestWayContainer[0], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource DigitsInput}">
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding Path=OnlyDigitsBestWay}" CommandParameter="0"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewKeyDown">
+                            <command:EventToCommand Command="{Binding Path=BestWayKeyDown}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <TextBox x:Name="BestChoice2" Text="{Binding Path=BestWayContainer[1], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource DigitsInput}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding Path=OnlyDigitsBestWay}" CommandParameter="1"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewKeyDown">
+                            <command:EventToCommand Command="{Binding Path=BestWayKeyDown}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+                <TextBox x:Name="BestChoice3" Text="{Binding Path=BestWayContainer[2], TargetNullValue='', Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Style="{StaticResource DigitsInput}" >
+                    <i:Interaction.Triggers>
+                        <i:EventTrigger EventName="TextChanged">
+                            <i:InvokeCommandAction Command="{Binding Path=OnlyDigitsBestWay}" CommandParameter="2"/>
+                        </i:EventTrigger>
+                        <i:EventTrigger EventName="PreviewKeyDown">
+                            <command:EventToCommand Command="{Binding Path=BestWayKeyDown}" PassEventArgsToCommand="True"/>
+                        </i:EventTrigger>
+                    </i:Interaction.Triggers>
+                </TextBox>
+            </StackPanel>
+        </Grid>
+        <Grid Grid.Row="4" Grid.ColumnSpan="3" Margin="0,0,5,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="90*"/>
+                <ColumnDefinition Width="408*"/>
+                <ColumnDefinition Width="25*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Label Style="{DynamicResource MetroLabel}" Content="{x:Static res:Resources.VotingLabel}" VerticalAlignment="Top" HorizontalAlignment="Left" Grid.Column="0" Margin="5,0,0,0"/>
+            <ItemsControl Grid.Column="1" ItemsSource="{Binding OnVote}" HorizontalAlignment="Left">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource VoteButtons}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.DeleteFromVote}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <ItemsControl Grid.ColumnSpan="3" Grid.Row="1" ItemsSource="{Binding NotOnVote}" HorizontalAlignment="Center" Margin="20,0,20,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Rows="1"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Style="{StaticResource VoteButtons}"
+                                    Command="{Binding RelativeSource={RelativeSource AncestorType={x:Type ItemsControl}}, Path=DataContext.AddToVote}"/>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Button Command="{Binding Path=ClearVoteList}" Style="{StaticResource ButtonWindowClose}" VerticalAlignment="Center" Margin="0,0,5,0" Grid.Column="2"/>
+        </Grid>
+        <Grid Grid.Row="5" Grid.ColumnSpan="3">
+            <Button Command="{Binding Path=CountResult}" Style="{StaticResource MetroAccentButton}" FontSize="10" Content="{x:Static res:Resources.CountButton}"
+                    HorizontalAlignment="Left" Height="35" Width="100" Margin="10,0,0,0" VerticalAlignment="Center"/>
+            <CheckBox Style="{DynamicResource MetroCheckBox}"
+                      IsChecked="{Binding Path=ThreeZv, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                      Content="{x:Static res:Resources.ThreeZvButton}" Width="95" HorizontalAlignment="Right" HorizontalContentAlignment="Left"
+                      VerticalAlignment="Center" Margin="0,5,10,5" />
+            <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Horizontal" Margin="0,0,0,0">
+                <RadioButton x:Name="RedCheckBox" IsChecked="{Binding Path=RedWin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                             Content="{x:Static res:Resources.RedLabel}" Margin="0,0,20,0" />
+                <RadioButton x:Name="BlackCheckBox" IsChecked="{Binding Path=BlackWin, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{x:Static res:Resources.BlackLabel}" />
+            </StackPanel>
+        </Grid>
+    </Grid>
+</Controls:MetroWindow>

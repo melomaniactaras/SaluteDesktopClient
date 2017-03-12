@@ -1,0 +1,425 @@
+﻿<controls:MetroWindow x:Class="WpfApplication1.Infographics"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:WpfApplication1"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:oxy="http://oxyplot.org/wpf"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:command="http://www.galasoft.ch/mvvmlight"
+        xmlns:res="clr-namespace:WpfApplication1.Properties"
+        SizeToContent="WidthAndHeight"
+        Background="{DynamicResource ProgressBrush}" Foreground="{DynamicResource WhiteBrush}"
+        mc:Ignorable="d" ResizeMode="CanResize"
+        DataContext="{Binding Path=InfographicsViewModel, Source={StaticResource Locator}}"
+        Title="Infographics" WindowStartupLocation="CenterScreen"
+        ShowIconOnTitleBar="True" GlowBrush="{DynamicResource AccentColorBrush}" EnableDWMDropShadow="True">
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <command:EventToCommand Command="{Binding InfographicsClosing}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <controls:MetroWindow.Resources>
+
+        <LinearGradientBrush EndPoint="0.001,0.5" StartPoint="1.002,0.5" x:Key="CustomGradientBrush">
+            <GradientStop Color="Red" Offset="1" />
+            <GradientStop Color="#FFA90E00" Offset="0" />
+        </LinearGradientBrush>
+
+        <LinearGradientBrush EndPoint="0.001,0.5" StartPoint="1.002,0.5" x:Key="ReversedCustomGradientBrush">
+            <GradientStop Color="Red" Offset="0" />
+            <GradientStop Color="#FFA90E00" Offset="1" />
+        </LinearGradientBrush>
+
+        <Style TargetType="Ellipse" x:Key="OuterEllipse">
+            <Setter Property="Width" Value="80"/>
+            <Setter Property="Height" Value="80"/>
+            <Setter Property="Fill" Value="{DynamicResource WhiteBrush}"/>
+        </Style>
+
+        <Style TargetType="Ellipse" x:Key="InnerEllipse">
+            <Setter Property="Width" Value="72"/>
+            <Setter Property="Height" Value="72"/>
+            <Setter Property="Fill" Value="#FF086F9E"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="TextInCircle">
+            <Setter Property="Foreground" Value="{DynamicResource WhiteBrush}"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="Margin" Value="0 -3 0 0"/>
+        </Style>
+        
+        <Style TargetType="TextBlock" x:Key="TextBlockInHeader">
+            <Setter Property="Margin" Value="0 0 4 0"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+        <Style TargetType="Image" x:Key="ManWoman">
+            <Setter Property="Height" Value="300"/>
+        </Style>
+
+        <Style TargetType="Viewbox" x:Key="LeadersViewbox">
+            <Setter Property="MaxWidth" Value="100"/>
+            <Setter Property="StretchDirection" Value="DownOnly"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="LeadersTextBoxes">
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+        </Style>
+        
+        <Style TargetType="Rectangle" x:Key="Dividers">
+            <Setter Property="Fill" Value="{DynamicResource ValidationSummaryColor5}"/>
+            <Setter Property="Width" Value="3"/>
+        </Style>
+        
+        <Style TargetType="Run" x:Key="DefaultRun">
+            <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+            <Setter Property="FontSize" Value="50"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="WeekStatistics">
+            <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+            <Setter Property="FontSize" Value="25"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextDecorations" Value="Underline"/>
+        </Style>
+        
+        <Style TargetType="Image" x:Key="NonRateImage">
+            <Setter Property="Height" Value="300"/>
+            <Setter Property="Stretch" Value="Fill"/>
+            <Setter Property="VerticalAlignment" Value="Bottom"/>
+            <Setter Property="Width" Value="90"/>
+        </Style>
+
+        <Style TargetType="TextBlock" x:Key="NonRateTextBlock">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+            <Setter Property="Margin" Value="0 39 0 0"/>
+        </Style>
+        
+        <Style TargetType="ItemsControl" x:Key="NonRateItemsControl">
+            <Setter Property="VerticalAlignment" Value="Top"/>
+            <Setter Property="Width" Value="70"/>
+        </Style>
+        
+        <Style TargetType="TextBlock" x:Key="TextBlockInsideNonRate">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="FontSize" Value="30"/>
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+            <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+        </Style>
+
+        <Style TargetType="Viewbox" x:Key="NonRateViewbox">
+            <Setter Property="Width" Value="70"/>
+            <Setter Property="StretchDirection" Value="DownOnly"/>
+        </Style>
+        
+        <Style TargetType="TextBlock" x:Key="RatingScore">
+            <Setter Property="HorizontalAlignment" Value="Left"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Margin" Value="3 0 0 0"/>
+            <Setter Property="FontFamily" Value="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+            <Setter Property="FontStretch" Value="UltraCondensed"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+        
+    </controls:MetroWindow.Resources>
+    
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Command="{Binding CreateButton}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Static res:Resources.Edit}" Style="{StaticResource TextBlockInHeader}"/>
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding ExportButton}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{x:Static res:Resources.ExportButton}" Style="{StaticResource TextBlockInHeader}"/>
+                </StackPanel>
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <Grid Height="{Binding InfoHeight, FallbackValue=2268}" Width="{Binding InfoWidth, FallbackValue=1237}">
+        <Grid.LayoutTransform>
+            <ScaleTransform ScaleX="{Binding Path=ScaleValue}" ScaleY="{Binding Path=ScaleValue}"/>
+        </Grid.LayoutTransform>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1.3*"/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="10*"/>
+        </Grid.RowDefinitions>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.9*"/>
+                <ColumnDefinition />
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Orientation="Horizontal">
+                <Image Source="Images/Logojust.png" Margin="10 10 10 10" HorizontalAlignment="Left" />
+                <TextBlock Margin="60 0 0 0" VerticalAlignment="Center" TextAlignment="Center">
+                    <Run Text="SALUTE" FontSize="70" FontFamily="pack://application:,,,/Fonts/#Glegoo" />
+                    <LineBreak />
+                    <Run Text="LVIV MAFIA CLUB" FontSize="30" FontFamily="pack://application:,,,/Fonts/#Glegoo" />
+                </TextBlock>
+            </StackPanel>
+            
+            <Rectangle Grid.Column="0" HorizontalAlignment="Right" Margin="0 10 0 10" Style="{StaticResource Dividers}"/>
+            <StackPanel Orientation="Horizontal" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                <TextBlock HorizontalAlignment="Center" TextAlignment="Center">
+                    <Run Text="{Binding Path=Series}" FontSize="60" FontFamily="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+                    <LineBreak/>
+                    <Run Text="{x:Static res:Resources.GameSeries}" FontSize="40" FontFamily="pack://application:,,,/Fonts/#GOST 2.304 A"/>
+                </TextBlock>
+            </StackPanel>
+            <Rectangle Grid.Column="1" HorizontalAlignment="Right" Margin="0 10 0 10" Style="{StaticResource Dividers}"/>
+            <TextBlock Grid.Column="2" HorizontalAlignment="Center" TextAlignment="Center" VerticalAlignment="Center">
+                 <Run Text="{Binding Path=Dates[0], StringFormat=dd-MM-yyyy}" Style="{StaticResource DefaultRun}"/>
+                 <LineBreak/>
+                 <Run Text="{Binding Path=Dates[1], StringFormat=dd-MM-yyyy}" Style="{StaticResource DefaultRun}"/>
+            </TextBlock>
+            <controls:ToggleSwitch FontSize="24" Foreground="{DynamicResource WhiteBrush}" OnLabel="SALUTE" OffLabel="FIIM" 
+                                   VerticalAlignment="Top" HorizontalAlignment="Right" Grid.Column="2"
+                                   IsChecked="{Binding Path=RatingType, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="10 0 0 0" FontWeight="Thin">
+
+            </controls:ToggleSwitch>
+        </Grid>
+        <Rectangle Height="3" Grid.Row="1" VerticalAlignment="Top" Margin="10 0 10 0" Style="{StaticResource Dividers}"/>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.4*"/>
+                <ColumnDefinition Width="0.9*"/>
+                <ColumnDefinition Width="1.5*"/>
+            </Grid.ColumnDefinitions>
+            <Viewbox Grid.Column="0" Width="440" Height="450">
+                <Grid>
+                    <Image Source="Images/podium.png" Width="440" Margin="0 30 0 0" VerticalAlignment="Bottom"/>
+                    <Image Source="Images/man.png" Style="{StaticResource ManWoman}" Margin="0 0 0 130" Visibility="{Binding LeadersGender[0], Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <Image Source="Images/woman.png" Style="{StaticResource ManWoman}" Margin="0 0 0 130" Visibility="{Binding LeadersGender[1], Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <Image Source="Images/woman 2.png" Style="{StaticResource ManWoman}" HorizontalAlignment="Left" Margin="25 0 0 20" Visibility="{Binding LeadersGender[2], Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <Image Source="Images/man 3.png" Style="{StaticResource ManWoman}" HorizontalAlignment="Left" Margin="25 0 0 20" Visibility="{Binding LeadersGender[3], Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <Image Source="Images/woman 3.png" Style="{StaticResource ManWoman}" HorizontalAlignment="Right" Margin="0 0 30 0" Visibility="{Binding LeadersGender[4], Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <Image Source="Images/man 2.png" Style="{StaticResource ManWoman}" HorizontalAlignment="Right" Margin="0 0 40 0" Visibility="{Binding LeadersGender[5], Converter={StaticResource BoolToVisibilityConverter}}"/>
+                    <Viewbox Margin="0 230 0 0" Style="{StaticResource LeadersViewbox}">
+                        <TextBlock Text="{Binding Path=Leaders[0]}" AllowDrop="True" Style="{StaticResource LeadersTextBoxes}"/>
+                    </Viewbox>
+                    <Viewbox Margin="0 340 300 0" Style="{StaticResource LeadersViewbox}">
+                        <TextBlock Text="{Binding Path=Leaders[1]}" Style="{StaticResource LeadersTextBoxes}"/>
+                    </Viewbox>
+                    <Viewbox Margin="290 360 0 0" Style="{StaticResource LeadersViewbox}">
+                        <TextBlock Text="{Binding Path=Leaders[2]}" Style="{StaticResource LeadersTextBoxes}"/>
+                    </Viewbox>
+                </Grid>
+            </Viewbox>
+            <Rectangle Grid.Column="1" HorizontalAlignment="Left" Margin="5 10 0 10" Style="{StaticResource Dividers}"/>
+            <Rectangle Grid.Column="1" HorizontalAlignment="Right" Margin="0 10 5 10" Style="{StaticResource Dividers}"/>
+            <StackPanel Grid.Column="1">
+                <TextBlock Style="{StaticResource WeekStatistics}" Text="{x:Static res:Resources.WeekStat}" Margin="0 30 0 0" />
+                <oxy:PlotView Model="{Binding Path=GamesForWeek}" Background="Transparent" Height="200" Width="200" VerticalAlignment="Top" Padding="5"
+                              HorizontalAlignment="Stretch" Margin="0 15 0 0"/>
+                <TextBlock Style="{StaticResource WeekStatistics}" Margin="0 10 0 0" FontSize="28">
+                    <Run Text="{x:Static res:Resources.Total}"/>
+                    <Run Text="{Binding Path=TotalGames}"/>
+                    <Run Text="{x:Static res:Resources.TotalEnd}"/>
+                </TextBlock>
+                <TextBlock Style="{StaticResource WeekStatistics}" Text="{x:Static res:Resources.PlayersLabel}" Margin="0 10 0 0" FontSize="28"/>
+                <Grid Margin="0 10 0 0">
+                    <Ellipse Style="{StaticResource OuterEllipse}"/>
+                    <Ellipse Style="{StaticResource InnerEllipse}"/>
+                    <TextBlock Style="{StaticResource TextInCircle}" Text="{Binding Path=PlayersCount}"/>
+                </Grid>
+            </StackPanel>
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition Height="2*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="{x:Static res:Resources.NotInRating}" FontSize="25" TextAlignment="Center" FontFamily="pack://application:,,,/Fonts/#GOST 2.304 A" Margin="0 70 0 0"></TextBlock>
+                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                    <Grid>
+                        <Image Source="Images/nonrate.png" Margin="10 0 0 10" Style="{StaticResource NonRateImage}"/>
+                        <TextBlock Style="{StaticResource NonRateTextBlock}" Text="{Binding OffRating[0]}" Margin="8 39 0 0"/>
+                        <ItemsControl Margin="8 100 0 0" ItemsSource="{Binding FirstOffRating}" Style="{StaticResource NonRateItemsControl}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Viewbox Style="{StaticResource NonRateViewbox}">
+                                            <TextBlock Text="{Binding}" Style="{StaticResource TextBlockInsideNonRate}"/>
+                                        </Viewbox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                    <Grid>
+                        <Image Source="Images/nonrate.png" Margin="5 0 0 10" Style="{StaticResource NonRateImage}"/>
+                        <TextBlock Style="{StaticResource NonRateTextBlock}" Text="{Binding OffRating[1]}"/>
+                        <ItemsControl Margin="8 100 0 0" ItemsSource="{Binding SecondOffRating}" Style="{StaticResource NonRateItemsControl}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Viewbox Style="{StaticResource NonRateViewbox}">
+                                            <TextBlock Text="{Binding}" Style="{StaticResource TextBlockInsideNonRate}"/>
+                                        </Viewbox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                    <Grid>
+                        <Image Source="Images/nonrate.png" Margin="5 0 0 10" Style="{StaticResource NonRateImage}"/>
+                        <TextBlock Style="{StaticResource NonRateTextBlock}" Text="{Binding OffRating[2]}"/>
+                        <ItemsControl Margin="0 100 0 0" ItemsSource="{Binding ThirdOffRating}" Style="{StaticResource NonRateItemsControl}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Viewbox Style="{StaticResource NonRateViewbox}">
+                                            <TextBlock Text="{Binding}" Style="{StaticResource TextBlockInsideNonRate}"/>
+                                        </Viewbox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                    <Grid>
+                        <Image Source="Images/nonrate.png" Margin="5 0 0 10" Style="{StaticResource NonRateImage}"/>
+                        <TextBlock Style="{StaticResource NonRateTextBlock}" Text="{Binding OffRating[3]}"/>
+                        <ItemsControl Margin="0 100 0 0" ItemsSource="{Binding FourthOffRating}" Style="{StaticResource NonRateItemsControl}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Viewbox Style="{StaticResource NonRateViewbox}">
+                                            <TextBlock Text="{Binding}" Style="{StaticResource TextBlockInsideNonRate}" />
+                                        </Viewbox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                    <Grid>
+                        <Image Source="Images/nonrate.png" Margin="5 0 0 10" Style="{StaticResource NonRateImage}"/>
+                        <TextBlock Style="{StaticResource NonRateTextBlock}" Text="{Binding OffRating[4]}"/>
+                        <ItemsControl Margin="8 100 0 0" ItemsSource="{Binding FifthOffRating}" Style="{StaticResource NonRateItemsControl}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel>
+                                        <Viewbox Style="{StaticResource NonRateViewbox}">
+                                            <TextBlock Text="{Binding}" Style="{StaticResource TextBlockInsideNonRate}"/>
+                                        </Viewbox>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Grid>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <ItemsControl Margin="15 15 10 0" ItemsSource="{Binding Path=SeasonRating}">
+                <ItemsControl.LayoutTransform>
+                    <ScaleTransform ScaleY="{Binding Path=ScaleRatingField}"/>
+                </ItemsControl.LayoutTransform>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                <Border Padding="0 7 0 7" Width="85" Background="{StaticResource CustomGradientBrush}">
+                                    <TextBlock Style="{StaticResource RatingScore}">
+                                        <Run Text="{Binding Games}"/>/<Run Text="{Binding Score}"/>
+                                    </TextBlock>
+                                </Border>
+                                <Border Background="#CCE51400" Padding="0 7 0 7" Width="65" Margin="3 0 0 0">
+                                    <TextBlock Margin="5 0 0 0" Text="{Binding Rating, StringFormat={}{0:F2}}" Style="{StaticResource RatingScore}"/>
+                                </Border>
+                                <Border Padding="0 5 0 5" Margin="2 0 0 0" Width="{Binding Path=Width}" x:Name="NickBorder" CornerRadius="0 8 8 0" Background="{StaticResource ReversedCustomGradientBrush}">
+                                    <Viewbox MaxWidth="{Binding Width}" StretchDirection="DownOnly" HorizontalAlignment="Left" >
+                                        <TextBlock Text="{Binding Path=Nick, Converter={StaticResource ToUppercaseConverter}}" Margin="5 0 0 0" FontSize="24" VerticalAlignment="Center"/>
+                                    </Viewbox>
+                                </Border>
+                                <Path Width="25" Margin="-2 0 0 0" Height="{Binding ElementName=NickBorder, Path=ActualHeight}" Stretch="Fill" Stroke="Transparent" Fill="Red" Data="F1 M 319.344,237.333L 287.328,218.849L 287.328,255.818L 319.344,237.333 Z "/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+            <Rectangle Grid.Column="0" HorizontalAlignment="Right" Margin="0 20 0 20" Style="{StaticResource Dividers}"/>
+            <Grid Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <ItemsControl Margin="10 15 15 0" Grid.Row="0" ItemsSource="{Binding Path=SeriesRating}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Left">
+                                    <Border Padding="0 7 0 7" Width="85" Background="{StaticResource CustomGradientBrush}">
+                                        <TextBlock Style="{StaticResource RatingScore}">
+                                            <Run Text="{Binding Games}"/>/<Run Text="{Binding Score}"/>
+                                        </TextBlock>
+                                    </Border>
+                                    <Border Background="#CCE51400" Padding="0 7 0 7" Width="65" Margin="3 0 0 0">
+                                        <TextBlock Style="{StaticResource RatingScore}" Margin="5 0 0 0" Text="{Binding Rating, StringFormat={}{0:F2}}"/>
+                                    </Border>
+                                    <Border Padding="0 5 0 5" Margin="2 0 0 0" Width="{Binding Path=Width}" x:Name="AnotherNickBorder" CornerRadius="0 8 8 0"
+                                            Background="{StaticResource ReversedCustomGradientBrush}">
+                                        <Viewbox MaxWidth="{Binding Width}" StretchDirection="DownOnly" HorizontalAlignment="Left" >
+                                            <TextBlock Text="{Binding Path=Nick, Converter={StaticResource ToUppercaseConverter}}" Margin="5 0 0 0" FontSize="24" VerticalAlignment="Center"/>
+                                        </Viewbox>
+                                    </Border>
+                                    <Path Width="25" Margin="-2 0 0 0" Height="{Binding ElementName=AnotherNickBorder, Path=ActualHeight}" Stretch="Fill" Stroke="Transparent" Fill="Red" Data="F1 M 319.344,237.333L 287.328,218.849L 287.328,255.818L 319.344,237.333 Z "/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+                <ItemsControl Grid.Row="1" HorizontalAlignment="Left" Margin="10 20 10 10" ItemsSource="{Binding Achievements}" >
+                    <ItemsControl.LayoutTransform>
+                        <ScaleTransform ScaleY="{Binding Path=ScaleAchievementsField}" ScaleX="{Binding Path=ScaleAchievementsField}"/>
+                    </ItemsControl.LayoutTransform>
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+
+                            <Grid Width="190">
+                                <Image Source="Images/Acc.png"
+                                       Visibility="{Binding TypeOfAchievements, Converter={StaticResource AchievementTypeToVisibility}}" />
+                                <Image Source="Images/Accgold.png"
+                                       Visibility="{Binding TypeOfAchievements, Converter={StaticResource AchievementTypeToVisibility}, ConverterParameter=reversed}" />
+                                <Viewbox MaxWidth="80" StretchDirection="DownOnly">
+                                    <TextBlock Text="{Binding Nick}" HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" Margin="-5 0 0 35" FontSize="30"
+                                               FontFamily="pack://application:,,,/Fonts/#GOST 2.304 A" />
+                                </Viewbox>
+                                <TextBlock
+                                    Text="{Binding Converter={StaticResource AchievementTypeConverter}}"
+                                    HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0 25 0 0"
+                                    FontSize="22" FontFamily="pack://application:,,,/Fonts/#GOST 2.304 A" />
+                            </Grid>
+
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Grid>
+        <Rectangle Height="3" Grid.Row="2" VerticalAlignment="Top" Fill="{DynamicResource ValidationSummaryColor5}" Margin="10 0 10 0"/>
+    </Grid>
+</controls:MetroWindow>

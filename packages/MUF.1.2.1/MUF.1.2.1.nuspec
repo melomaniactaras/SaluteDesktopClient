@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>MUF</id>
+    <version>1.2.1</version>
+    <title>Monitored Undo Framework</title>
+    <authors>Nathan Allen-Wagner</authors>
+    <owners>Nathan Allen-Wagner</owners>
+    <licenseUrl>http://muf.codeplex.com/license</licenseUrl>
+    <projectUrl>http://muf.codeplex.com/</projectUrl>
+    <iconUrl>http://download-codeplex.sec.s-msft.com/Download?ProjectName=muf&amp;DownloadId=250752&amp;Build=20798</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Monitored Undo is an Undo / Redo framework that makes it simple for .NET developers to add Undo capabilities to an application. The framework "monitors" changes to the model, keeps a history of undo / redo operations, and assists with applying an undo back to the model.</description>
+    <summary>MIT License</summary>
+    <releaseNotes>Version 1.2 includes refactorings of the Changes implementations as well as some reorganization of the solution. It also includes a move to Portable Class Libraries as a means to support Windows Phone and Silverlight. Version 1.2.1 fixes a missing assembly version for the NET35 dlls.</releaseNotes>
+    <copyright>Copyright © Alner LLC 2010</copyright>
+    <tags>muf monitored undo</tags>
+  </metadata>
+</package>
